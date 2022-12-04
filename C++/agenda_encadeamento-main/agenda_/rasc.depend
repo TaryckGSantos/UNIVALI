@@ -1,8 +1,0 @@
-# depslib dependency file v1.0
-1669871743 source:c:\users\taryck\desktop\scripts-python\c\rasc\main.cpp
-	<iostream>
-	<stdlib.h>
-	<time.h>
-	<stdio.h>
-	<fstream>
-
