@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1669873857 source:c:\users\taryck\desktop\scripts-python\c\agenda_\main.cpp
+	<iostream>
+	<stdlib.h>
+	<time.h>
+	<stdio.h>
+	<fstream>
+	"agenda.h"
+
+1669873909 c:\users\taryck\desktop\scripts-python\c\agenda_\agenda.h
+	<iostream>
+	<stdlib.h>
+	<time.h>
+	<stdio.h>
+	<fstream>
+
