@@ -1,0 +1,130 @@
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+#include <stdio.h>
+using namespace std;
+
+struct Produto{
+    int codigo;
+    string nome;
+    float preco;
+    Produto *proximo;
+};
+//estrutura da lista
+struct ListaE{
+    Produto *inicio;
+};
+//inicializa lista
+bool inicializa_lista (ListaE &lista){
+    lista.inicio = NULL;
+}
+//Protótipo da inserção
+
+/*bool insere_elemento_lista(TListaE &lista, Produto prod);*/
+
+void inserir_produto(Produto *produtos, Produto *a){
+
+        system("cls");
+        cout << endl << endl << endl << endl;
+        cout << "\t\t" << " - LISTA DE PRODUTOS - ";
+        cout << endl << endl << endl;
+        cout << "\t\t" << "- Insira o nome do produto: ";
+        cin >> produtos->nome;
+        cout << endl << endl << "\t\t" << "- Insira o código do produto: ";
+        cin >> produtos->codigo;
+        cout << endl << endl << "\t\t" << "- Insira o preço do produto: ";
+        cin >> produtos->preco;
+        a = produtos;
+        cout << endl << endl << a;
+}
+
+void mostra_produtos(Produto *produtos, Produto *a){
+
+        cout << endl << endl << endl << endl;
+        cout << "\t\t" << " - LISTA DE PRODUTOS - ";
+        cout << endl << endl << endl;
+        cout << "\t\t" << "Nome do produto: " << produtos->nome;
+        cout << endl << endl << "\t\tCódigo do produto: " << produtos->codigo;
+        cout << endl << endl << "\t\tPreço do produto:" << produtos->preco;
+}
+
+int remover_produto(Produto *Produtos){
+
+}
+
+void menu(int confirma_menu){
+    Produto *a, *produtos;
+
+    cout << endl << endl << endl << endl;
+    cout << "\t\t" << " - LISTA DE PRODUTOS - ";
+    cout << endl << endl << endl;
+    cout << "\t\t" << "Para inserir mais um produto, pressione 1: ";
+    cout << endl << endl;
+    cout << "\t\t" << "Para mostrar os produtos, pressione 2: ";
+    cout << endl << endl;
+    cout << "\t\t" << "Para remover um dos produtos, pressione 3: ";
+    cout << endl << endl;
+    cout << "\t\t" << "Para encerrar a lista, pressione 4: ";
+    cout << endl << endl;
+    cin >> confirma_menu;
+
+    if(confirma_menu == 1){
+        produtos = new Produto;
+        inserir_produto(produtos,a);
+    } else if (confirma_menu == 2) {
+        mostra_produtos(produtos,a);
+    } else if(confirma_menu == 4){
+        system("cls");
+        cout << endl << endl << endl << endl;
+        cout << "\t\t" << "Agenda encerrada :)";
+        cout << endl << endl << endl;
+        exit(0);
+    }
+}
+
+void menu_inicial(int &confirma_inicio){
+    Produto *produtos, *a;
+    int confirma_menu;
+
+    cout << endl << endl << endl << endl;
+    cout << "\t\t" << "LISTA DE PRODUTOS - MENU INICIAL";
+    cout << endl << endl << endl;
+    cout << "\t\t" << "Para inserir o primeiro produto, pressione 1: ";
+    cout << endl << endl;
+    cout << "\t\t" << "Para sair da lista sem adicionar nenhum produto, pressione 2: ";
+    cout << endl << endl << "\t\t";
+    cin >> confirma_inicio;
+
+    if(confirma_inicio == 1){
+
+        inserir_produto(produtos, a);
+        menu(confirma_menu);
+
+    } else if(confirma_inicio == 2){
+        system("cls");
+        cout << endl << endl << endl << endl;
+        cout << "\t\t" << "Agenda encerrada :)";
+        cout << endl << endl << endl;
+        exit(0);
+    }
+    else {
+        cout << endl << endl << "Pressione apenas 1 ou 2!";
+        return menu_inicial(confirma_inicio);
+    }
+}
+
+int main()
+{
+    setlocale(LC_ALL, "Portuguese");
+
+    int confirma_menu, confirma_inicio;
+    Produto *produtos;
+    produtos = new Produto;
+
+    menu_inicial(confirma_inicio);
+    while (int a = 100){
+        menu(confirma_menu);
+        a++;
+    }
+
+}

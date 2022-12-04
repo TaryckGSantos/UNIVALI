@@ -1,0 +1,194 @@
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+#include <stdio.h>
+#include <fstream>
+using namespace std;
+
+struct Produto{//struct usada em todo o código para os produtos
+    int codigo;
+    string nome;
+    float preco;
+    Produto *proximo;
+};
+
+bool inicializa_lista(Produto* inicio){ //função para verificação de inicialização
+    if (inicio == NULL) { //caso seja um ponteiro nulo, retornar true
+        return true;
+    }
+    else { // caso não seja, retornar falso
+        return false;
+    }
+}
+
+void inserir_primeiro(Produto* &inicio, Produto* &ultimo, Produto auxiliar){//função usada caso seja a primeira inserção
+
+    //através de um ponteiro auxiliar, será atribuído cada valor/nome em cada parte da struct
+    Produto* temp = new Produto;// declara o novo ponteiro
+    temp->codigo = auxiliar.codigo; //atribui os valores/nomes para cada parte
+    temp->nome = auxiliar.nome;
+    temp->preco = auxiliar.preco;
+    temp->proximo = NULL; // aponta o próximo endereço como nulo
+    inicio = temp; // o primeiro vetor recebe o vetor inserido
+    ultimo = temp; // o ultimo vetor tambem recebe o vetor inserido
+}
+
+void inserir(Produto* &inicio, Produto* &ultimo, Produto auxiliar){
+
+    if (inicializa_lista(inicio)) { // caso seja o primeiro vetor a ser inserido
+        inserir_primeiro(inicio, ultimo, auxiliar); // retorna a função de primeiro vetor
+    }
+    else { // caso não seja o primeiro vetor, o tipo de inserção é igual, usando um vetor auxiliar
+        Produto* temp = new Produto; // declarando o novo vetor
+        temp->codigo = auxiliar.codigo; // atribuindo dados
+        temp->nome = auxiliar.nome;
+        temp->preco = auxiliar.preco;
+        temp->proximo = NULL; // proximo endereço é nulo
+        ultimo->proximo = temp; // ultimo vetor aponta para o endereço do vetor inserido
+        ultimo = temp; // ultimo recebe os dados do vetor inserido
+    }
+}
+
+void mostra_produtos(Produto* prod_mostrar){ // função para mostrar os produtos inseridos
+
+    cout << endl << endl << endl << endl;
+    cout << "\t\t" << " - LISTA DE PRODUTOS - ";
+    cout << endl << endl << endl;
+    if (inicializa_lista(prod_mostrar)) { // caso não haja nenhum dado inserido ainda
+        cout << "\t\t" << "A lista está vazia!";
+    } else {
+        while (prod_mostrar != NULL) {
+            cout << "\t\t" << "Nome do produto: " << prod_mostrar->nome;
+            cout << endl << endl << "\t\tCódigo do produto: " << prod_mostrar->codigo;
+            cout << endl << endl << "\t\tPreço do produto: " << prod_mostrar->preco;
+            cout << endl << endl << "\t\t" << "----------------------" << endl << endl;
+            prod_mostrar = prod_mostrar->proximo;
+        }
+    }
+}
+
+int remover_produto(Produto* prod_remover){
+
+    system("cls");
+
+    int select;
+
+    cout << endl << endl << endl << endl;
+    cout << "\t\t" << " - LISTA DE PRODUTOS - ";
+    cout << endl << endl << endl;
+    cout << "\t\t" << "- Insira o código do produto que será removido: ";
+    cin >> select;
+
+    if (inicializa_lista(prod_remover)) {
+        cout << "\t\t" << "A lista está vazia!";
+    } else {
+        while (prod_remover != NULL) {
+            if(select==prod_remover->codigo){
+                delete prod_remover;
+            } else {
+                prod_remover = prod_remover->proximo;
+            }
+        }
+    }
+}
+
+int menu(){
+
+    int confirma_menu;
+    cout << endl << endl << endl << endl;
+    cout << "\t\t" << " - LISTA DE FUNCIONALIDADES - ";
+    cout << endl << endl << endl;
+    cout << "\t\t" << "Para inserir um produto, pressione 1: ";
+    cout << endl << endl;
+    cout << "\t\t" << "Para remover um dos produtos, pressione 2: ";
+    cout << endl << endl;
+    cout << "\t\t" << "Para encerrar a lista, pressione 3: ";
+    cout << endl << endl << "\t\t";
+    cin >> confirma_menu;
+
+    return confirma_menu;
+}
+
+int main()
+{
+    setlocale(LC_ALL, "Portuguese");
+
+    Produto* inicio = NULL;
+    Produto* ultimo = NULL;
+    Produto auxiliar;
+
+    int confirma_menu, confirma_inicio;
+
+    cout << endl << endl << endl << endl;
+    cout << "\t\t" << "LISTA DE PRODUTOS - MENU INICIAL";
+    cout << endl << endl << endl;
+    cout << "\t\t" << "Para iniciar a agenda, pressione 1: ";
+    cout << endl << endl;
+    cout << "\t\t" << "Para sair da lista sem adicionar nenhum produto, pressione 2: ";
+    cout << endl << endl << "\t\t";
+    cin >> confirma_inicio;
+
+    if(confirma_inicio == 1){
+        system("cls");
+
+    } else if(confirma_inicio == 2){
+        system("cls");
+        cout << endl << endl << endl << endl;
+        cout << "\t\t" << "Agenda encerrada :)";
+        cout << endl << endl << endl;
+        exit(0);
+    }
+    else {
+        cout << endl << endl << "Pressione apenas 1 ou 2!";
+        cin >> confirma_inicio;
+    }
+
+    do{
+
+        mostra_produtos(inicio);
+        confirma_menu = menu();
+
+        switch(confirma_menu){
+
+            case 1: //inserção
+                system("cls");
+                cout << endl << endl << endl << endl;
+                cout << "\t\t" << " - LISTA DE PRODUTOS - ";
+                cout << endl << endl << endl;
+                cout << "\t\t" << "- Insira o nome do produto: ";
+                cin >> auxiliar.nome;
+                cout << endl << endl << "\t\t" << "- Insira o código do produto: ";
+                cin >> auxiliar.codigo;
+                cout << endl << endl << "\t\t" << "- Insira o preço do produto: ";
+                cin >> auxiliar.preco;
+                inserir(inicio, ultimo, auxiliar);
+                system("cls");
+                break;
+
+            case 2://remover
+                remover_produto(inicio);
+                system("cls");
+                break;
+
+            default:
+                cout << endl << endl << endl << endl;
+                cout << "\t\tOpção inválida!";
+                cout << endl << endl << endl;
+                break;
+        }
+    } while(confirma_menu != '5');
+
+    /*atual = inicio;
+    while (atual != NULL)
+    {
+        inicio = atual->proximo;
+        delete(atual);
+        atual = inicio;
+    }
+
+    do{
+        menu(confirma_menu);
+    } while (confirma_menu != 4);*/
+
+    return 0;
+}
