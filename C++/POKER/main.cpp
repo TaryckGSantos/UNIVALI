@@ -1,6 +1,6 @@
-/* criação de lista de cartas de poker:
+/* criaÃ§Ã£o de lista de cartas de poker:
 
-    criação de biblioteca:
+    criaÃ§Ã£o de biblioteca:
 
         inicializa_baralho(criar uma lista linear vazia)
         insere_carta_final
@@ -14,15 +14,17 @@ using namespace std;
 
 const int maximo = 5;
 
+//struct com int tipo e int valor
+
 struct Lista{
-    int elementos[maximo];
+    int elementos[maximo]; // colocar o tamanho aqui
 };
 
 int inicializa_baralho(Lista &poker, int &quantidade){
-    for(int i=0; i<maximo; i++){
+    for(int i=0; i<maximo; i++){ // nÃ£o precisa 
         poker.elementos[i] = 0;
     }
-    quantidade = 0;
+    quantidade = 0; // precisa 
 }
 
 int insere_carta_inicio(Lista &poker, int &quantidade){
@@ -33,13 +35,13 @@ int insere_carta_inicio(Lista &poker, int &quantidade){
     cin >> poker.elementos[0];
     if(poker.elementos[0]>12 || poker.elementos[0]<1){
         system("cls");
-        cout << "\n\n\t\tCarta inválida! Insira um valor entre 1 e 12";
+        cout << "\n\n\t\tCarta invÃ¡lida! Insira um valor entre 1 e 12";
         return insere_carta_inicio(poker,quantidade);
     }
     quantidade++;
 }
 
-int insere_carta_final(Lista &poker, int &quantidade){
+int insere_carta_final(Lista &poker, int &quantidade){ // fazer no estilo do trab. usando um auxiliar e attribuir os valores
     cout << "\n\n\t\tInsira o valor desejado: ";
     cin >> poker.elementos[quantidade];
     quantidade++;
@@ -66,7 +68,7 @@ int imprime_carta(Lista &poker, int &quantidade){
     if(quantidade==0){
         cout << "\n\n\t\tNenhuma carta inserida :( ";
     } else {
-    cout << "\n\n\t\tCartas já inseridas: ";
+    cout << "\n\n\t\tCartas jÃ¡ inseridas: ";
     for(int i=0; i<quantidade; i++){
         cout << "\t" << poker.elementos[i] << "\t";
     }
@@ -87,8 +89,8 @@ int main()
         int aux_menu;
 
         cout << "\n\n\t\t- Menu -" << endl << endl << endl;
-        cout << "\t\tDigite o que você dejesa fazer: " << endl << endl;
-        cout << "\t\t1 - Inserir carta no início" << endl;
+        cout << "\t\tDigite o que vocÃª dejesa fazer: " << endl << endl;
+        cout << "\t\t1 - Inserir carta no inÃ­cio" << endl;
         cout << "\t\t2 - Inserir carta no final" << endl;
         cout << "\t\t3 - Remover a carta do final" << endl;
         cout << "\t\t4 - Mostrar a quantidade de cartas inseridas no vetor" << endl;
