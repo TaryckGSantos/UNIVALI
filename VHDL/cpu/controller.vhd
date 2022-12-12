@@ -7,8 +7,8 @@ entity controller is
 			  i_IR_in  : in std_logic_vector(15 downto 0);
 			  o_D_addr : out std_logic_vector(7 downto 0);
 			  o_D_rd : out std_logic;
-			  o_D_wr : out std_logic;
-			  o_RF_w_data : out std_logic_vector(7 downto 0);
+			  o_D_wr : out std_logic;  
+			  o_RF_w_data : out std_logic_vector(7 downto 0); 
 			  o_RF_s1 : out std_logic;
 			  o_RF_s0 : out std_logic;
 			  o_RF_w_addr  :  out std_logic_vector(3 downto 0);
@@ -17,7 +17,6 @@ entity controller is
 			  o_RF_Rp_rd : out std_logic;
 			  o_RF_Rq_addr  : out std_logic_vector(3 downto 0);
 			  o_RF_Rq_rd : out std_logic;
-			  o_alu_s1 : out std_logic;
 			  o_alu_s0 : out std_logic;
 			  o_PC_clr: out std_logic;
 			  o_PC_inc: out std_logic;
@@ -102,7 +101,6 @@ begin
 				  o_RF_Rp_rd <= '0';
 				  o_RF_Rq_addr  <= w_Rc;
 				  o_RF_Rq_rd <= '0';
-				  o_alu_s1 <= '0';
 				  o_alu_s0 <= '0';
 				  o_PC_clr <= '0';
 				  o_PC_inc <= '0';
@@ -140,7 +138,6 @@ begin
 								o_RF_s0 <= '0';
 								o_RF_Rq_rd <= '1';
 								o_RF_W_wr <= '1';
-								o_alu_s1 <= '0';
 								o_alu_s0 <= '1';
 								
 						when carregar_constante =>
