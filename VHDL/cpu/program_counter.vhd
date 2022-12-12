@@ -7,7 +7,6 @@ entity program_counter is
 port ( i_pc_clk : in std_logic;
 		 i_pc_clr : in std_logic;
 		 i_pc_inc : in std_logic;
-		 i_pc_D : in std_logic_vector(15 downto 0);
 		 o_pc_Q : out std_logic_vector(15 downto 0));
 end program_counter;
 	
