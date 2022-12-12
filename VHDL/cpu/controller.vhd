@@ -1,92 +1,158 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity controller is 
-port (  i_CLK : in std_logic;
-		  i_CLR : in std_logic;
-		  i_IGUAL : in std_logic;
-		  i_MENOR : in std_logic;
-		  i_GO : in std_logic;
-		  o_XSEL : out std_logic;
-		  o_YSEL : out std_logic;
-		  o_XLD : out std_logic; 
-		  o_YLD : out std_logic;
-		  o_SLD : out std_logic);
+entity controller is
+	port (  i_clk  : in std_logic;
+			  i_reset  : in std_logic;
+			  i_IR_in  : in std_logic_vector(15 downto 0);
+			  o_D_addr : out std_logic_vector(7 downto 0);
+			  o_D_rd : out std_logic;
+			  o_D_wr : out std_logic;
+			  o_RF_w_data : out std_logic_vector(7 downto 0);
+			  o_RF_s1 : out std_logic;
+			  o_RF_s0 : out std_logic;
+			  o_RF_w_addr  :  out std_logic_vector(3 downto 0);
+			  o_RF_w_wr : out std_logic;
+			  o_RF_Rp_addr  : out std_logic_vector(3 downto 0);
+			  o_RF_Rp_rd : out std_logic;
+			  o_RF_Rq_addr  : out std_logic_vector(3 downto 0);
+			  o_RF_Rq_rd : out std_logic;
+			  o_alu_s1 : out std_logic;
+			  o_alu_s0 : out std_logic;
+			  o_PC_clr: out std_logic;
+			  o_PC_inc: out std_logic;
+			  o_I_rd: out std_logic;
+			  o_IR_ld: out std_logic);
 end controller;
 
-architecture arch_2 of controller is
-type estado is (inicio, entrada, teste1, teste2, 
-					 update1, update2, final);
-					 
-signal estado_atual, proximo_estado: estado;
+architecture arc_ctl of controller is
+component decodificador 
+port ( i_entrada : in std_logic_vector(15 downto 0);
+		 o_instrucao : out std_logic_vector(3 downto 0);
+		 o_Ra : out std_logic_vector(3 downto 0);
+		 o_Rb : out std_logic_vector(3 downto 0);
+		 o_Rc : out std_logic_vector(3 downto 0);
+		 o_D : out std_logic_vector(7 downto 0));
+end component;
+
+type estado is (inicio, busca, decodificacao, carregar, 
+					 armazenar, somar, carregar_constante);
+signal estado_atual: estado;
+signal w_operacao, w_Ra, w_Rb, w_Rc :  std_logic_vector(3 downto 0);
+signal w_D: std_logic_vector(7 downto 0);
 begin 
-
-u_q_registrador: process (i_CLK, i_CLR)
-begin 
-		if i_CLR = '1' then 
-				estado_atual <= inicio;
-		elsif i_CLK' event and i_CLK = '1' then
-				estado_atual <= proximo_estado;
-		end if;
-end process;
-
-u_control1: process (estado_atual, i_GO, i_IGUAL, i_MENOR)
-begin
-		case estado_atual is
-				when inicio =>
-						if i_GO = '1' then
-								proximo_estado <= entrada;
-						else 
-								proximo_estado <= inicio;
+		
+		u_decodificador: decodificador port map( i_IR_in, w_operacao, w_Ra, w_Rb, w_Rc, w_D);
+		
+		u_controller1: process(estado_atual, w_operacao, i_clk)
+		begin 
+				if i_reset = '1' then 
+					estado_atual <= inicio;
+				else 
+						if i_clk'event and i_clk = '1' then
+								case estado_atual is
+										when inicio =>
+												estado_atual <= busca;
+												
+										when busca =>
+												estado_atual <= decodificacao;
+														
+										when decodificacao =>
+												if w_operacao = "0000" then 
+														estado_atual <= carregar;
+												elsif w_operacao = "0001" then 
+														estado_atual <= armazenar;
+												elsif w_operacao = "0010" then 
+														estado_atual <= somar;
+												elsif w_operacao = "0011" then 
+														estado_atual <= carregar_constante;
+												else 
+														null;
+												end if;
+									
+										when carregar =>
+												estado_atual <= busca;
+														
+										when armazenar =>
+												estado_atual <= busca;
+																
+										when somar =>
+												estado_atual <= busca;
+												
+										when carregar_constante =>
+												estado_atual <= busca;
+											when others =>
+												null;
+								end case;
 						end if;
-				when entrada => 
-						proximo_estado <= teste1;
-				when teste1 =>
-						if i_IGUAL = '1' then
-								proximo_estado <= final;
-						else 
-								proximo_estado <= teste2;
-						end if;
-				when teste2 => 
-						if i_MENOR = '1' then
-								proximo_estado <= update1;
-						else 
-								proximo_estado <= update2;
-						end if;
-				when update1 =>
-						proximo_estado <= teste1;
-				when update2 =>
-						proximo_estado <= teste1;
-				when final =>
-						proximo_estado <= final;
-				when others =>
-						null;
-		end case;
-end process;
-
-u_control2: process (estado_atual)
-begin 
-
-		o_XLD <= '0';
-		o_YLD <= '0';
-		o_SLD <= '0';
-		o_XSEL <= '0';
-		o_YSEL <= '0';
-		case estado_atual is
-				when entrada =>
-						o_XLD <= '1';
-						o_YLD <= '1';
-						o_XSEL <= '1';
-						o_YSEL <= '1';
-				when update1 =>
-						o_YLD <= '1';
-				when update2 =>
-						o_XLD <= '1';
-				when final =>
-						o_SLD <= '1';
-				when others =>
-						null;
-		end case;
-end process;
-
-end arch_2;
+				end if;
+		end process;
+		
+		u_controller2: process(estado_atual)
+		begin 
+				  o_D_addr <= w_D;
+				  o_D_rd <= '0';
+				  o_D_wr <= '0';
+				  o_RF_w_data <= "00000000";
+				  o_RF_s1 <= '0';
+				  o_RF_s0 <= '0';
+				  o_RF_w_addr  <= w_Ra;
+				  o_RF_w_wr <= '0';
+				  o_RF_Rp_addr  <= "0000";
+				  o_RF_Rp_rd <= '0';
+				  o_RF_Rq_addr  <= w_Rc;
+				  o_RF_Rq_rd <= '0';
+				  o_alu_s1 <= '0';
+				  o_alu_s0 <= '0';
+				  o_PC_clr <= '0';
+				  o_PC_inc <= '0';
+				  o_I_rd <= '0';
+				  o_IR_ld <= '0';
+				
+				case estado_atual is
+						when inicio =>
+								o_PC_clr <= '1';
+								
+						when busca =>
+								o_I_rd <= '1';
+								o_PC_inc <= '1';
+								o_IR_ld <= '1';
+					
+						when carregar => 
+								o_D_addr <= w_D;
+								o_D_rd <= '1';
+								o_RF_s1 <= '0';
+								o_RF_s0 <= '1';
+								o_RF_W_wr <= '1';
+										
+						when armazenar => 
+								o_D_addr <= w_D;
+								o_D_wr <= '1';
+								o_RF_s1 <= 'X';
+								o_RF_s0 <= 'X';
+								o_RF_Rp_addr <= w_Ra;
+								o_RF_Rp_rd <= '1';
+								
+						when somar => 
+								o_RF_Rp_addr <= w_Rb;
+								o_RF_Rp_rd <= '1';
+								o_RF_s1 <= '0';
+								o_RF_s0 <= '0';
+								o_RF_Rq_rd <= '1';
+								o_RF_W_wr <= '1';
+								o_alu_s1 <= '0';
+								o_alu_s0 <= '1';
+								
+						when carregar_constante =>
+								o_RF_s1 <= '1';
+								o_RF_s0 <= '0';
+								o_RF_W_wr <= '1';
+								
+						when others =>
+								null;
+								
+				end case;
+				o_RF_w_data <= i_IR_in(7 downto 0);
+		end process;
+		
+end arc_ctl;
