@@ -1,16 +1,16 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity mux16 is
+entity mux_3x1_16bits is
 port ( i_R2 : in std_logic_vector(15 downto 0);
 		 i_R1 : in std_logic_vector(15 downto 0);
 		 i_R0 : in std_logic_vector(15 downto 0);
 		 i_S1 : in std_logic;
 		 i_S0 : in std_logic;
 		 o_Q : out std_logic_vector(15 downto 0));
-end mux16;
+end mux_3x1_16bits;
 	
-architecture arch_1 of mux16 is 
+architecture arch_1 of mux_3x1_16bits is 
 signal w_distribuidor : std_logic_vector(1 downto 0);
 begin
 		
