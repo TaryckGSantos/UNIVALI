@@ -265,7 +265,7 @@ int main()
             }
         } while(pontos!=8 && jogadas>0);
     }
-    if(pontos>=8){
+    if(pontos>=8 && mat1[TAM][TAM] == mat2[TAM][TAM]){
         jogaf=24-jogadas;
         system("cls");
         cout << endl << endl;
