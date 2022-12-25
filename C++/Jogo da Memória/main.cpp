@@ -18,58 +18,77 @@ int main()
     int l1,l2,c1,c2,escolha1,escolha2;
     int k = 3;
 
-    cout << endl << "\n\n\t\t\t\tBem-vindo ao jogo da memória. Regras: " << endl;
-    cout << endl << "\t\t1 - Voce terá 24 tentativas de acertar os 8 pares de números";
-    cout << endl << "\t\t2 - O número de linhas e colunas começam do 0 (mais a esquerda) e vai até o 3 (mais a direita) ";
-    cout << endl << "\t\t3 - Digite 1 para iniciar o jogo.";
-    cout << endl << endl << endl;
-    cout << "\t\tPressione 1 para iniciar: ";
-    cin >> confirmacao;
-
-    if (confirmacao == 1) {
-        system("cls");
-    } else {
-        cout << endl << "\t\tPressione apenas 1 ";
-        return 0;
-    }
+    cout << endl << "\n\n\t\t\t    Bem-vindo ao jogo da memória. Regras: " << endl;
+    cout << endl << "\t1 - Voce terá 24 tentativas de acertar os 8 pares de números";
+    cout << endl << "\t2 - O número de linhas e colunas começam do 0 (mais a esquerda) e vai até o 3 (mais a direita) ";
+    cout << endl << "\t3 - Após memorizar a sua matriz, digite 1 para iniciar o jogo. Esta será a sua matriz: ";
 
     srand(time(NULL));
-    num= rand()%4;
+    num = rand()%4;
+
+    cout << endl << endl;
 
     switch(num){
         case 0:
             for(int i=0;i<TAM;i++){
+                cout << "\t\t\t";
                 for(int j=0;j<TAM;j++){
+                    cout << "\t";
                     mat1[i][j]=mat[i][j];
+                    cout << "|" << mat1[i][j] << "|";
                 }
+                cout << endl;
             }
             break;
 
         case 1: // Matriz transposta
             for(int i=0;i<TAM;i++){
+                cout << "\t\t\t";
                 for(int j=0;j<TAM;j++){
+                    cout << "\t";
                     mat1[i][j]=mat[j][i];
+                    cout << "|" << mat1[i][j] << "|";
                 }
+                cout << endl;
             }
             break;
 
         case 2: //Matriz invertida por linha
             for(int i=0;i<TAM;i++){
+                cout << "\t\t\t";
                 for(int j=0;j<TAM;j++){
+                    cout << "\t";
                     mat1[i][j]=mat[k][j];
+                    cout << "|" << mat1[i][j] << "|";
                 }
                 k--;
+                cout << endl;
             }
             break;
 
         case 3: //Matriz invertida por coluna
             for(int j=0;j<TAM;j++){
+                cout << "\t\t\t";
                 for(int i=0;i<TAM;i++){
+                    cout << "\t";
                     mat1[i][j]=mat[i][k];
+                    cout << "|" << mat1[i][j] << "|";
                 }
                 k--;
+                cout << endl;
             }
             break;
+    }
+
+    cout << endl << endl;
+    cout << "\tPressione 1 para iniciar: ";
+    cin >> confirmacao;
+
+    if (confirmacao == 1) {
+        system("cls");
+    } else {
+        cout << endl << "\tPressione apenas 1 ";
+        return 0;
     }
 
     cout << endl << endl << "\t\t\t|X|\t|X|\t|X|\t|X|\n\t\t\t|X|\t|X|\t|X|\t|X|\n\t\t\t|X|\t|X|\t|X|\t|X|\n\t\t\t|X|\t|X|\t|X|\t|X|"<<endl;
