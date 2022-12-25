@@ -14,6 +14,5 @@ architecture comp of somador is
 begin
 		o_S <= (not i_A and not i_B and i_CIN) or (not i_A and
 		i_B and not i_CIN) or (i_A and not i_B and not i_CIN);
-		o_COUT <= ((i_A and i_B) or (i_A and i_CIN) or (i_B and
-		i_CIN));
+		o_COUT <= ((i_A and i_B) or (i_A and i_CIN) or (i_B and i_CIN));
 end comp;
