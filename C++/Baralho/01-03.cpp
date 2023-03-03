@@ -258,13 +258,13 @@ int zerar_baralho(Lista &poker){
 int montar_baralho(Lista &poker){
     poker.tamanho_baralho = 0;
 
-        for(int i=1; i<=12; i++){
-            for(int j=1; j<=4; j++){
-                poker.elemento[poker.tamanho_baralho].naipe = j;
-                poker.elemento[poker.tamanho_baralho].numero = i;
-                poker.tamanho_baralho++;
-            }
+    for(int i=1; i<=12; i++){
+        for(int j=1; j<=4; j++){
+            poker.elemento[poker.tamanho_baralho].naipe = j;
+            poker.elemento[poker.tamanho_baralho].numero = i;
+            poker.tamanho_baralho++;
         }
+    }
 }
 
 int embaralhar(Lista &poker){
@@ -292,7 +292,7 @@ int jogo_bj(Lista &poker){
     srand(time(NULL));
     system("cls");
 
-    aux_bot = rand()%8 + 14;
+    aux_bot = rand()%7 + 15;
     cout << endl << endl << endl << "\t\t\tPontuação do BOT: " << aux_bot;
 
     aux_j = rand()%52;
@@ -319,7 +319,7 @@ int jogo_bj(Lista &poker){
     }
 
     aux_j = rand()%52;
-    soma_jogador += poker.elemento[aux_j].numero;
+    soma_jogador = soma_jogador + poker.elemento[aux_j].numero;
 
     cout << endl << "\t\t\tSegunda carta: ";
     switch (poker.elemento[aux_j].naipe){
@@ -348,7 +348,7 @@ int jogo_bj(Lista &poker){
 
         if (aux_menu == 1) {
             aux_j = rand()%52;
-            soma_jogador += poker.elemento[aux_j].numero;
+            soma_jogador = soma_jogador + poker.elemento[aux_j].numero;
 
             cout << endl << endl << endl << "\t\t\tCarta adicionada: ";
             switch (poker.elemento[aux_j].naipe){
