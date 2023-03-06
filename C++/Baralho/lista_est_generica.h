@@ -1,11 +1,7 @@
 #ifndef LISTA_EST_GENERICA_H_INCLUDED
 #define LISTA_EST_GENERICA_H_INCLUDED
 
-#include <iostream>
-#include <windows.h>
-#include <stdlib.h>
-#include <time.h>
-using namespace std;
+#include "poker.h"
 
 template <typename TIPO>
 struct Elemento{
@@ -15,7 +11,7 @@ struct Elemento{
 template <typename TIPO, int MAX>
 struct Lista{
     Elemento <TIPO> elementos[MAX];
-    int tamanho
+    int tamanho;
 };
 
 template <typename TIPO, int MAX>
@@ -23,18 +19,29 @@ int inicializa_lista_gen(Lista<TIPO, MAX> &el){
     el.tamanho = 0;
 }
 
-template <typename TIPO, int MAX>
-int preenche_aux(Elemento &aux){
+template <typename TIPO>
+int preenche_aux(Elemento <TIPO> &aux){
 
-    cout << endl << endl << endl << "\t\t\tInsira o(s) dado(s) do elemento: ";
-    cin >> aux.dado;
+    cout << endl << endl << endl << "\t\t\tInsira o número da carta: ";
+    cin >> aux.dado.numero;
+    if (aux.dado.numero > 13 || aux.dado.numero < 1){
+        cout << endl << endl << endl << "\t\t\tInsira apenas cartas de 1 a 13!";
+        return preenche_aux(aux);
+    }
+
+    cout << endl << endl <<"\t\t\t1 - Copas\n\t\t\t2 - Ouro\n\t\t\t3 - Paus\n\t\t\t4 - Espadas" << "\n\n\t\t\tInsira o naipe da carta: ";
+    cin >> aux.dado.naipe;
+    if (aux.dado.naipe > 4 || aux.dado.naipe < 1){
+        cout << endl << endl << endl << "\t\t\tInsira apenas números de 1 a 4!";
+        return preenche_aux(aux);
+    }
 }
 
 template <typename TIPO, int MAX>
-int verifica_insercao(Lista<TIPO, MAX> &el, Elemento &aux){
+int verifica_insercao(Lista<TIPO, MAX> &el, Elemento <TIPO> &aux){
 
     for(int i=0; i<el.tamanho; i++){
-        if(aux.dado == el.elementos[i].dado){
+        if(aux.dado.numero == el.elementos[i].dado.numero && aux.dado.naipe == el.elementos[i].dado.naipe){
             cout << endl << endl << endl << "\t\t\tEste elemento já existe! ";
             system("pause>nul");
             system("cls");
@@ -44,7 +51,7 @@ int verifica_insercao(Lista<TIPO, MAX> &el, Elemento &aux){
 }
 
 template <typename TIPO, int MAX>
-int insere_final(Lista<TIPO, MAX> &el, Elemento &aux){
+int insere_final(Lista<TIPO, MAX> &el, Elemento <TIPO> &aux){
 
     system("cls");
 
@@ -55,7 +62,7 @@ int insere_final(Lista<TIPO, MAX> &el, Elemento &aux){
 }
 
 template <typename TIPO, int MAX>
-int insere_inicio(Lista<TIPO, MAX> &el, Elemento &aux){
+int insere_inicio(Lista<TIPO, MAX> &el, Elemento <TIPO> &aux){
 
     system("cls");
 
@@ -70,7 +77,7 @@ int insere_inicio(Lista<TIPO, MAX> &el, Elemento &aux){
 }
 
 template <typename TIPO, int MAX>
-int insere_posicao(Lista<TIPO, MAX> &el, Elemento &aux){
+int insere_posicao(Lista<TIPO, MAX> &el, Elemento <TIPO> &aux){
     int aux_posicao;
 
     system("cls");
@@ -90,7 +97,7 @@ int insere_posicao(Lista<TIPO, MAX> &el, Elemento &aux){
 }
 
 template <typename TIPO, int MAX>
-int menu_inserir(Lista<TIPO, MAX> &el, Elemento &aux){
+int menu_inserir(Lista<TIPO, MAX> &el, Elemento <TIPO> &aux){
     int aux_menu;
 
     cout << endl << endl << endl;
@@ -147,7 +154,7 @@ int remove_posicao(Lista<TIPO, MAX> &el){
 }
 
 template <typename TIPO, int MAX>
-int menu_remover(Lista<TIPO, MAX> &el, Elemento &aux){
+int menu_remover(Lista<TIPO, MAX> &el, Elemento <TIPO> &aux){
     int aux_menu;
 
     cout << endl << endl << endl;
@@ -174,18 +181,6 @@ int menu_remover(Lista<TIPO, MAX> &el, Elemento &aux){
 }
 
 template <typename TIPO, int MAX>
-int mostrar_elementos(Lista<TIPO, MAX> &el){
-    system("cls");
-
-    cout << endl << endl << endl;
-
-    for(int i=0; i<el.tamanho; i++){
-        cout << "\t\t - " << el.elementos[i].dado << endl << endl;
-
-    }
-}
-
-template <typename TIPO, int MAX>
 int buscar_elementos(Lista<TIPO, MAX> &el){
     int aux_posicao;
 
@@ -199,7 +194,24 @@ int buscar_elementos(Lista<TIPO, MAX> &el){
     } else {
         for (int i=0; i < MAX; i++){
             if (aux_posicao == i){
-                cout << el.elementos[i].dado << " | copas" << endl << endl;
+               switch (el.elementos[i].dado.naipe){
+
+                    case 1:
+                        cout << el.elementos[i].dado.numero << " | copas" << endl << endl;
+                        break;
+
+                    case 2:
+                        cout << el.elementos[i].dado.numero << " | ouro" << endl << endl;
+                        break;
+
+                    case 3:
+                        cout << el.elementos[i].dado.numero << " | paus" << endl << endl;
+                        break;
+
+                    case 4:
+                        cout << el.elementos[i].dado.numero << " | espadas" << endl << endl;
+                        break;
+                }
 
             }
         }
@@ -222,7 +234,7 @@ int zerar_baralho(Lista<TIPO, MAX> &el){
 template <typename TIPO, int MAX>
 int embaralhar(Lista<TIPO, MAX> &el){
     int num1, num2, contagem = 0;
-    Elemento aux_troca;
+    Elemento <TIPO> aux_troca;
 
     srand(time(NULL));
 
@@ -234,6 +246,17 @@ int embaralhar(Lista<TIPO, MAX> &el){
         el.elementos[num2] = aux_troca;
         contagem++;
     } while (contagem <= 100);
+}
+
+template <typename TIPO, int MAX>
+int mostrar_elementos(Lista <TIPO, MAX> el){
+    system("cls");
+
+    cout << endl << endl << endl;
+
+    for(int i=0; i<el.tamanho; i++){
+        mostrar_cartas(el.elementos[i].dado);
+    }
 }
 
 #endif // LISTA_EST_GENERICA_H_INCLUDED
