@@ -1,16 +1,20 @@
+#include <iostream>
+using namespace std;
+#include <windows.h>
+#include <stdlib.h>
+#include <time.h>
 #include "poker.h"
+#include "lista_est_generica.h"
 
 int main(){
 
     setlocale (LC_ALL ,"Portuguese");
 
     int aux_menu;
-    Lista poker;
-    cartas aux;
+    Lista <cartas, 52> el;
+    Elemento <cartas> aux;
 
-
-
-    inicializa_baralho(poker);
+    inicializa_lista_gen(el);
 
     do{
         cout << "\n\n\t\t- Menu -" << endl << endl << endl;
@@ -29,49 +33,49 @@ int main(){
 
             case 1:
                 system("cls");
-                menu_inserir(poker,aux);
+                menu_inserir(el,aux);
                 system("cls");
                 break;
 
             case 2:
                 system("cls");
-                menu_remover(poker,aux);
+                menu_remover(el,aux);
                 system("cls");
                 break;
 
             case 3:
                 system("cls");
-                mostrar_elementos(poker);
+                mostrar_elementos(el);
                 system("pause>nul");
                 system("cls");
                 break;
 
             case 4:
                 system("cls");
-                buscar_elementos(poker);
+                buscar_elementos(el);
                 system("pause>nul");
                 system("cls");
                 break;
 
             case 5:
                 system("cls");
-                qtd_cartas(poker);
+                qtd_Elemento(el);
                 system("pause>nul");
                 system("cls");
                 break;
 
             case 6:
                 system("cls");
-                zerar_baralho(poker);
+                zerar_baralho(el);
                 system("pause>nul");
                 system("cls");
                 break;
 
-            case 7:
+            /*case 7:
                 system("cls");
-                menu_blackjack(poker);
+                menu_blackjack(el);
                 system("cls");
-                break;
+                break;*/
 
             case 8:
                 system("cls");
