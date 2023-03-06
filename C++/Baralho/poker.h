@@ -1,17 +1,10 @@
 #ifndef POKER_H_INCLUDED
 #define POKER_H_INCLUDED
 
-#include <iostream>
-#include <windows.h>
-#include <stdlib.h>
-#include <time.h>
-#define maximo 52
-using namespace std;
-
 struct cartas{
     int numero;
     int naipe;
-};
+};/*
 
 struct Lista{
     cartas elemento[maximo];
@@ -177,35 +170,29 @@ int menu_remover(Lista &poker, cartas &aux){
             remove_posicao(poker);
             break;
     }
-}
+}*/
 
-int mostrar_elementos(Lista &poker){
-    system("cls");
-
-    cout << endl << endl << endl;
-
-    for(int i=0; i<poker.tamanho_baralho; i++){
-
-        switch (poker.elemento[i].naipe){
+int mostrar_cartas(cartas el){
+   switch (el.naipe){
 
             case 1:
-                cout << "\t\t - " << poker.elemento[i].numero << " | copas" << endl << endl;
+                cout << "\t\t - " << el.numero << " | copas" << endl << endl;
                 break;
 
             case 2:
-                cout << "\t\t - " << poker.elemento[i].numero << " | ouro" << endl << endl;
+                cout << "\t\t - " << el.numero << " | ouro" << endl << endl;
                 break;
 
             case 3:
-                cout << "\t\t - " << poker.elemento[i].numero << " | paus" << endl << endl;
+                cout << "\t\t - " << el.numero << " | paus" << endl << endl;
                 break;
 
             case 4:
-                cout << "\t\t - " << poker.elemento[i].numero << " | espadas" << endl << endl;
+                cout << "\t\t - " << el.numero << " | espadas" << endl << endl;
                 break;
         }
-    }
 }
+/*
 
 int buscar_elementos(Lista &poker){
     cartas aux;
@@ -256,17 +243,18 @@ int zerar_baralho(Lista &poker){
     cout << endl << endl << endl << "\t\t\tBaralho Excluído! :)";
 }
 
-int montar_baralho(Lista &poker){
-    poker.tamanho_baralho = 0;
+template <typename TIPO, int MAX>
+int montar_baralho(Lista <TIPO,MAX> &el){
+    el.tamanho_baralho = 0;
 
     for(int i=1; i<=12; i++){
         for(int j=1; j<=4; j++){
-            poker.elemento[poker.tamanho_baralho].naipe = j;
-            poker.elemento[poker.tamanho_baralho].numero = i;
-            poker.tamanho_baralho++;
+            el.elemento[el.tamanho_baralho].naipe = j;
+            el.elemento[el.tamanho_baralho].numero = i;
+            el.tamanho_baralho++;
         }
     }
-}
+}/*
 
 int embaralhar(Lista &poker){
     int num1, num2, contagem = 0;
@@ -421,5 +409,5 @@ int menu_blackjack(Lista &poker){
                 break;
         }
     } while (aux_menu != 4);
-}
+}*/
 #endif // POKER_H_INCLUDED
