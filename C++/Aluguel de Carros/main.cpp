@@ -41,7 +41,7 @@ public:
         cin >> aux_situacao;
     }
 
-    int teste(string &aux_nome, string &aux_montadora, string &aux_cor, int &aux_qtd_lugares, float &aux_preco, string &aux_situacao){
+    int mostrar(string &aux_nome, string &aux_montadora, string &aux_cor, int &aux_qtd_lugares, float &aux_preco, string &aux_situacao){
         nome = aux_nome;
         montadora = aux_montadora;
         cor = aux_cor;
@@ -68,7 +68,7 @@ int main()
 {
     setlocale(LC_ALL,"Portuguese");
 
-    carro fusca;
+    carro elemento;
 
     string aux_nome;
     string aux_montadora;
@@ -77,12 +77,12 @@ int main()
     float aux_preco;
     string aux_situacao;
 
-    fusca.inserir_nome(aux_nome);
-    fusca.inserir_montadora(aux_montadora);
-    fusca.inserir_cor(aux_cor);
-    fusca.inserir_lugares(aux_qtd_lugares);
-    fusca.inserir_preco(aux_preco);
-    fusca.inserir_situcao(aux_situacao);
-    fusca.teste(aux_nome, aux_montadora, aux_cor, aux_qtd_lugares, aux_preco, aux_situacao);
+    elemento.inserir_nome(aux_nome);
+    elemento.inserir_montadora(aux_montadora);
+    elemento.inserir_cor(aux_cor);
+    elemento.inserir_lugares(aux_qtd_lugares);
+    elemento.inserir_preco(aux_preco);
+    elemento.inserir_situcao(aux_situacao);
+    elemento.mostrar(aux_nome, aux_montadora, aux_cor, aux_qtd_lugares, aux_preco, aux_situacao);
 
 }
