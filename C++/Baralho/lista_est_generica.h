@@ -1,8 +1,6 @@
 #ifndef LISTA_EST_GENERICA_H_INCLUDED
 #define LISTA_EST_GENERICA_H_INCLUDED
 
-#include "poker.h"
-
 template <typename TIPO>
 struct Elemento{
     TIPO dado;
@@ -222,7 +220,11 @@ template <typename TIPO, int MAX>
 int qtd_Elemento(Lista<TIPO, MAX> &el){
     system("cls");
 
-    cout << endl << endl << endl << "\t\t\tQuantidade de Elemento inseridas: " << el.tamanho << endl << endl;
+    if (el.tamanho == 0){
+        cout << endl << endl << endl << "\t\t\tNão há nenhum elemento inserido! :( " << endl << endl;
+    } else {
+        cout << endl << endl << endl << "\t\t\tQuantidade de Elemento inseridas: " << el.tamanho << endl << endl;
+    }
 }
 
 template <typename TIPO, int MAX>
@@ -246,6 +248,8 @@ int embaralhar(Lista<TIPO, MAX> &el){
         el.elementos[num2] = aux_troca;
         contagem++;
     } while (contagem <= 100);
+
+    cout << endl << endl << endl << "\t\t\tCartas embaralhadas! :)";
 }
 
 template <typename TIPO, int MAX>
@@ -254,8 +258,44 @@ int mostrar_elementos(Lista <TIPO, MAX> el){
 
     cout << endl << endl << endl;
 
-    for(int i=0; i<el.tamanho; i++){
-        mostrar_cartas(el.elementos[i].dado);
+    if (el.tamanho == 0){
+        cout << endl << endl << endl << "\t\t\tNão há nenhum elemento inserido! :( " << endl << endl;
+    } else {
+        for(int i=0; i<el.tamanho; i++){
+            mostrar_cartas(el.elementos[i].dado);
+        }
+    }
+}
+
+template <typename TIPO, int MAX>
+int montar_elementos(Lista <TIPO, MAX> el){
+    system("cls");
+
+    cout << endl << endl << endl;
+
+    if (el.tamanho == 0){
+        cout << endl << endl << endl << "\t\t\tNão há nenhum elemento inserido! :( " << endl << endl;
+    } else {
+        for(int i=0; i<el.tamanho; i++){
+            mostrar_cartas(el.elementos[i].dado);
+        }
+    }
+}
+
+template <typename TIPO, int MAX>
+int ordenar_bubble(Lista <TIPO, MAX> &el){
+    TIPO tmp;
+    int cond = 1;
+    for(int i = el.tamanho; i>= 1 and cond == 1; i--){
+        cond = 0;
+        for(int j = 0; j < i; j++){
+            if(el.elementos[j+1].dado < el.elementos[j].dado){
+                tmp = el.elementos[j+1].dado;
+                el.elementos[j+1].dado = el.elementos[j].dado;
+                el.elementos[j].dado = tmp;
+                cond = 1;
+            }
+        }
     }
 }
 
