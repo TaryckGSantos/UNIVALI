@@ -1,10 +1,9 @@
 #include <iostream>
 using namespace std;
-#include <windows.h>
 #include <stdlib.h>
 #include <time.h>
-#include "poker.h"
 #include "lista_est_generica.h"
+#include "poker.h"
 
 int main(){
 
@@ -20,12 +19,14 @@ int main(){
         cout << "\n\n\t\t- Menu -" << endl << endl << endl;
         cout << "\t\t1 - Inserir carta" << endl;
         cout << "\t\t2 - Remover carta" << endl;
-        cout << "\t\t3 - Mostrar as cartas inseridas" << endl;
+        cout << "\t\t3 - Mostrar as cartas" << endl;
         cout << "\t\t4 - Buscar alguma carta" << endl;
         cout << "\t\t5 - Mostrar quantidade de cartas inseridas" << endl;
-        cout << "\t\t6 - Remover todas as cartas" << endl;
-        cout << "\t\t7 - Iniciar o BlackJack" << endl;
-        cout << "\t\t8 - Encerrar a lista" << endl << endl;
+        cout << "\t\t6 - Fazer um baralho completo" << endl;
+        cout << "\t\t7 - Embaralhar cartas" << endl;
+        cout << "\t\t8 - Ordenar as cartas com Bubble" << endl;
+        cout << "\t\t9 - Remover todas as cartas" << endl;
+        cout << "\t\t10 - Encerrar a lista" << endl << endl;
         cout << "\t\tDigite o que você deseja fazer: ";
         cin >> aux_menu;
 
@@ -66,24 +67,38 @@ int main(){
 
             case 6:
                 system("cls");
-                zerar_baralho(el);
+                montar_baralho_poker(el);
                 system("pause>nul");
                 system("cls");
                 break;
 
-            /*case 7:
+            case 7:
                 system("cls");
-                menu_blackjack(el);
+                embaralhar(el);
+                system("pause>nul");
                 system("cls");
-                break;*/
+                break;
 
             case 8:
+                system("cls");
+                ordenar_bubble(el);
+                system("pause>nul");
+                system("cls");
+                break;
+
+            case 9:
+                system("cls");
+                zerar_baralho(el);
+                system("cls");
+                break;
+
+            case 10:
                 system("cls");
                 cout << "\n\n\t\tLista encerrada! :)" << "\n\n\t\t";
                 system("pause>nul");
                 exit(0);
                 break;
         }
-    } while(aux_menu != 8);
+    } while(aux_menu != 10);
     return 0;
 }
