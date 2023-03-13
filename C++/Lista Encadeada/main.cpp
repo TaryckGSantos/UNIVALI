@@ -10,7 +10,13 @@ struct cartas{
 
 int main()
 {
+
+    TLista <cartas> lista;
     Elemento<cartas> el;
-    
-    inicializa_lista(el);
+    cartas dado, au;
+
+    inicializa_lista(lista);
+
+    insere_inicio(lista, dado);
+
 }
