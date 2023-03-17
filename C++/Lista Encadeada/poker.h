@@ -13,19 +13,41 @@ int mostrar_cartas(TLista <TIPO> &lista){
     Elemento <TIPO> * nav = lista.inicio;
     aux = *nav;
 
-    if(lista.inicio == NULL){
-        cout << "Não há nenhum elemento inserido!";
-    } else {
-        while(nav->proximo != NULL) {
-            cout << endl << endl << endl;
-            cout << "\t\t\tNúmero " << aux.dado.numero;
-            cout << endl << "\t\t\tNaipe " << aux.dado.naipe;
-            nav = nav->proximo;
-            aux = *nav;
-        }
+    while(nav->proximo != NULL) {
         cout << endl << endl << endl;
-        cout << "\t\t\tNúmero " << aux.dado.numero;
-        cout << endl << "\t\t\tNaipe " << aux.dado.naipe;
+        cout << "\t\t\t" << aux.dado.numero << " - ";
+        switch(aux.dado.naipe){
+            case 1:
+                cout << "copas";
+                break;
+            case 2:
+                cout << "espadas";
+                break;
+            case 3:
+                cout << "ouros";
+                break;
+            case 4:
+                cout << "paus";
+                break;
+        }
+        nav = nav->proximo;
+        aux = *nav;
+    }
+    cout << endl << endl << endl;
+    cout << "\t\t\t" << aux.dado.numero << " - ";
+    switch(aux.dado.naipe){
+            case 1:
+                cout<< "copas";
+                break;
+            case 2:
+                cout << "espadas";
+                break;
+            case 3:
+                cout << "ouros";
+                break;
+            case 4:
+                cout << "paus";
+                break;
     }
 }
 
@@ -49,4 +71,47 @@ int aux_inserir(Elemento<TIPO> &el){
         return aux_inserir(el);
     }
 }
+
+template <typename TIPO>
+int montar_baralho(TLista <TIPO> &lista){
+
+    cartas aux;
+
+    for(int i = 1; i<=13; i++){
+        for(int j = 1; j<=4; j++){
+            aux.numero = i;
+            aux.naipe = j;
+            insere_final(lista, aux);
+        }
+    }
+}
+
+template <typename TIPO>
+int mostrar_carta_busca(TLista <TIPO> &lista, int &posicao_b){
+    int aux = 0;
+
+    Elemento <TIPO> * nav = lista.inicio;
+
+    while(aux < posicao_b-1){
+        nav = nav->proximo;
+        aux++;
+    }
+    Elemento <TIPO> aux_b = *nav;
+    cout << "\n\n\n\t\t\tCarta nessa posição: " << aux_b.dado.numero << " - ";
+    switch(aux_b.dado.naipe){
+        case 1:
+            cout << "copas";
+            break;
+        case 2:
+            cout<< "espadas";
+            break;
+        case 3:
+            cout << "ouros";
+            break;
+        case 4:
+            cout << "paus";
+            break;
+    }
+}
+
 #endif // POKER_H_INCLUDED
