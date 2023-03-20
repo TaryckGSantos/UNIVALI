@@ -18,16 +18,16 @@ int mostrar_cartas(TLista <TIPO> &lista){
         cout << "\t\t\t" << aux.dado.numero << " - ";
         switch(aux.dado.naipe){
             case 1:
-                cout << "copas";
+                cout<< "copas";
                 break;
             case 2:
-                cout << "espadas";
+                cout << "ouro";
                 break;
             case 3:
-                cout << "ouros";
+                cout << "paus";
                 break;
             case 4:
-                cout << "paus";
+                cout << "espadas";
                 break;
         }
         nav = nav->proximo;
@@ -36,18 +36,18 @@ int mostrar_cartas(TLista <TIPO> &lista){
     cout << endl << endl << endl;
     cout << "\t\t\t" << aux.dado.numero << " - ";
     switch(aux.dado.naipe){
-            case 1:
-                cout<< "copas";
-                break;
-            case 2:
-                cout << "espadas";
-                break;
-            case 3:
-                cout << "ouros";
-                break;
-            case 4:
-                cout << "paus";
-                break;
+        case 1:
+            cout<< "copas";
+            break;
+        case 2:
+            cout << "ouro";
+            break;
+        case 3:
+            cout << "paus";
+            break;
+        case 4:
+            cout << "espadas";
+            break;
     }
 }
 
@@ -100,18 +100,32 @@ int mostrar_carta_busca(TLista <TIPO> &lista, int &posicao_b){
     cout << "\n\n\n\t\t\tCarta nessa posição: " << aux_b.dado.numero << " - ";
     switch(aux_b.dado.naipe){
         case 1:
-            cout << "copas";
+            cout<< "copas";
             break;
         case 2:
-            cout<< "espadas";
+            cout << "ouro";
             break;
         case 3:
-            cout << "ouros";
+            cout << "paus";
             break;
         case 4:
-            cout << "paus";
+            cout << "espadas";
             break;
     }
 }
+
+/*template <typename TIPO>
+int bubblesort(TLista <TIPO> &lista){
+    TIPO tmp;
+    for(int i = el.tamanho; i>= 1 and cond == 1; i--){
+        for(int j = 0; j < i; j++){
+            if(el.elementos[j+1].dado < el.elementos[j].dado){
+                tmp = el.elementos[j+1].dado;
+                el.elementos[j+1].dado = el.elementos[j].dado;
+                el.elementos[j].dado = tmp;
+            }
+        }
+    }
+}*/
 
 #endif // POKER_H_INCLUDED
