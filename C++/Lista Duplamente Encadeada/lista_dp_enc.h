@@ -23,7 +23,7 @@ int inicializa_lista(TLista <TIPO> &lista){
 }
 
 template <typename TIPO>
-Elemento<TIPO> * novo_elemento_pista_de(TIPO &dado){
+Elemento<TIPO> * novo_elemento_lista_de(TIPO &dado){
 
     Elemento<TIPO> * novo = new Elemento<TIPO>;
     novo->dado = dado;
@@ -35,14 +35,14 @@ template <typename TIPO>
 int insere_final(TLista <TIPO> &lista, TIPO dado){
 
     if(lista.tamanho != 0){
-        Elemento<TIPO> * novo = novo_elemento_pista_de(dado);
+        Elemento<TIPO> * novo = novo_elemento_lista_de(dado);
         novo->anterior = lista.fim;
         lista.fim->proximo = novo;
         novo->proximo = NULL;
         lista.fim = novo;
         lista.tamanho++;
     } else {
-        Elemento<TIPO> * novo = novo_elemento_pista_de(dado);
+        Elemento<TIPO> * novo = novo_elemento_lista_de(dado);
         lista.inicio = novo;
         lista.fim = novo;
         novo->proximo = NULL;
@@ -55,14 +55,14 @@ template <typename TIPO>
 int insere_inicio(TLista <TIPO> &lista, TIPO dado){
 
     if(lista.tamanho != 0){
-        Elemento<TIPO> * novo = novo_elemento_pista_de(dado);
+        Elemento<TIPO> * novo = novo_elemento_lista_de(dado);
         lista.inicio->anterior = novo;
         novo->anterior = NULL;
         novo->proximo = lista.inicio;
         lista.inicio = novo;
         lista.tamanho++;
     } else {
-        Elemento<TIPO> * novo = novo_elemento_pista_de(dado);
+        Elemento<TIPO> * novo = novo_elemento_lista_de(dado);
         lista.inicio = novo;
         lista.fim = novo;
         novo->proximo = NULL;
@@ -92,7 +92,7 @@ int insere_posicao(TLista <TIPO> &lista, TIPO dado, int &posicao){
                 p = p->anterior;
                 aux--;
             }
-            Elemento<TIPO> * novo = novo_elemento_pista_de(dado);
+            Elemento<TIPO> * novo = novo_elemento_lista_de(dado);
             p->proximo = novo;
             novo->proximo = nav;
             lista.tamanho++;
@@ -104,7 +104,7 @@ int insere_posicao(TLista <TIPO> &lista, TIPO dado, int &posicao){
                 p = p->proximo;
                 aux++;
             }
-            Elemento<TIPO> * novo = novo_elemento_pista_de(dado);
+            Elemento<TIPO> * novo = novo_elemento_lista_de(dado);
             p->anterior = novo;
             novo->anterior = nav;
             lista.tamanho++;
@@ -119,14 +119,12 @@ int remove_fim(TLista <TIPO> &lista){
     if(lista.tamanho == 1){
         lista.fim = NULL;
         lista.inicio = NULL;
-        delete nav;
-        lista.tamanho--;
     } else {
         lista.fim = nav->anterior;
         nav->anterior->proximo = NULL;
-        delete nav;
-        lista.tamanho--;
     }
+    delete nav;
+    lista.tamanho--;
 }
 
 template <typename TIPO>
@@ -135,13 +133,11 @@ int remove_inicio(TLista <TIPO> &lista){
     Elemento <TIPO> * nav = lista.inicio;
     if(nav->proximo == NULL){
         lista.inicio = NULL;
-        delete nav;
-        lista.tamanho--;
     } else {
         lista.inicio = nav->proximo;
-        delete nav;
-        lista.tamanho--;
     }
+    delete nav;
+    lista.tamanho--;
 }
 
 template <typename TIPO>
@@ -165,7 +161,7 @@ int remove_posicao(TLista <TIPO> &lista, TIPO dado, int &posicao_r){
                 p = p->anterior;
                 aux--;
             }
-            Elemento<TIPO> * novo = novo_elemento_pista_de(dado);
+            Elemento<TIPO> * novo = novo_elemento_lista_de(dado);
             p->proximo = nav->proximo;
             delete nav;
             lista.tamanho--;
@@ -177,7 +173,7 @@ int remove_posicao(TLista <TIPO> &lista, TIPO dado, int &posicao_r){
                 p = p->proximo;
                 aux++;
             }
-            Elemento<TIPO> * novo = novo_elemento_pista_de(dado);
+            Elemento<TIPO> * novo = novo_elemento_lista_de(dado);
             nav->proximo = p->proximo;
             delete p;
             lista.tamanho--;
