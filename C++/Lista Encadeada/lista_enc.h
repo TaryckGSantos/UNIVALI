@@ -20,12 +20,11 @@ int inicializa_lista(TLista <TIPO> &lista){
 }
 
 template <typename TIPO>
-Elemento<TIPO> * novo_elemento_pista_de(TIPO &dado){
+Elemento<TIPO> * novo_elemento_lista_de(TIPO &dado){
 
     Elemento<TIPO> * novo = new Elemento<TIPO>;
     novo->dado = dado;
     novo->proximo = NULL;
-    //novo->anterior = NULL;
 }
 
 template <typename TIPO>
@@ -37,16 +36,25 @@ int insere_final(TLista <TIPO> &lista, TIPO dado){
         while(nav->proximo != NULL){
             nav = nav->proximo;
         }
-        Elemento<TIPO> * novo = novo_elemento_pista_de(dado);
+        Elemento<TIPO> * novo = novo_elemento_lista_de(dado);
         novo->proximo = NULL;
         nav->proximo = novo;
         lista.tamanho++;
     } else {
-        Elemento<TIPO> * novo = novo_elemento_pista_de(dado);
+        Elemento<TIPO> * novo = novo_elemento_lista_de(dado);
         novo->proximo = lista.inicio;
         lista.inicio = novo;
         lista.tamanho++;
     }
+}
+
+template <typename TIPO>
+int insere_inicio(TLista <TIPO> &lista, TIPO dado){
+
+    Elemento<TIPO> * novo = novo_elemento_lista_de(dado);
+    novo->proximo = lista.inicio;
+    lista.inicio = novo;
+    lista.tamanho++;
 }
 
 template <typename TIPO>
@@ -56,29 +64,17 @@ int insere_posicao(TLista <TIPO> &lista, TIPO dado, int &posicao){
     int aux = 0;
 
     if(posicao == 1){
-        Elemento<TIPO> * novo = novo_elemento_pista_de(dado);
-        novo->proximo = lista.inicio;
-        lista.inicio = novo;
-        lista.tamanho++;
+        insere_inicio(lista, dado);
     } else {
-        while(aux > posicao-1 && nav != NULL){
+        while(aux < posicao-2 && nav != NULL){
             nav = nav->proximo;
             aux++;
         }
-        Elemento<TIPO> * novo = novo_elemento_pista_de(dado);
+        Elemento<TIPO> * novo = novo_elemento_lista_de(dado);
         novo->proximo = nav->proximo;
         nav->proximo = novo;
         lista.tamanho++;
     }
-}
-
-template <typename TIPO>
-int insere_inicio(TLista <TIPO> &lista, TIPO dado){
-
-    Elemento<TIPO> * novo = novo_elemento_pista_de(dado);
-    novo->proximo = lista.inicio;
-    lista.inicio = novo;
-    lista.tamanho++;
 }
 
 template <typename TIPO>
@@ -165,8 +161,8 @@ int zera_baralho(TLista <TIPO> &lista){
         lista.inicio = NULL;
         lista.tamanho = 0;
     }
-}
 
+}
 template <typename TIPO>
 int embaralhar(TLista <TIPO> &lista){
     int aux_emb = 0;
