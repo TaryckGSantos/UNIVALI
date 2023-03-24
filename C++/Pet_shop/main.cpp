@@ -39,6 +39,7 @@ private:
     ConjuntoClientes * inicio;
     int tamanho;
 public:
+    dado_Cliente::dado_Cliente(int codigo, string nome, string rua, string bairro, string numero, int telefone);
     int getConjuntoClientes(ConjuntoClientes &lista_clientes){
         lista_clientes.inicio = NULL;
         this->inicio = &lista_clientes;
