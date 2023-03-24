@@ -1,75 +1,96 @@
 #include <iostream>
 using namespace std;
+#include <stdlib.h>
+#include <time.h>
 
-class strc_endereco{
+class dado_Cliente {
+private:
+    int codigo;
+    string nome;
     string rua;
     string bairro;
-    int numero;
-    
-    public: 
-        strc_endereco(const string &rua, const string &bairro, int &numero);
-        void cadastrar_endereco (const string &rua, const string &bairro, int &numero) const;
+    string numero;
+    long long int telefone;
+    dado_Cliente * proximo;
+public:
+    dado_Cliente(int codigo, string nome, string rua, string bairro, string numero, int telefone) {
+        this->codigo = codigo;
+        this->nome = nome;
+        this->rua = rua;
+        this->bairro = bairro;
+        this->telefone = telefone;
+    }
+    int getCodigo() const {
+        return codigo;
+    }
+    string getNome() const {
+        return nome;
+    }
+    string getEndereco() const {
+        return rua + ", " + bairro;
+    }
+    int getTelefone() const {
+        return telefone;
+    }
 };
 
-void strc_endereco::cadastrar_endereco() const{
-    cout << "\n\n\n\t\t\tDigite o nome da rua: ";
-    cin >> rua;
-    cout << "\n\n\t\t\tDigite o bairro: ";
-    cin >> bairro;
-    cout << "\n\n\t\t\tDigite o número da casa: ";
-    cin >> numero;
-}
-
-class dados_cliente{
-    string nome;
-    int codigo;
-    strc_endereco endereco;
-    
-    public:
-        dados_cliente(const string &nome, int &codigo, strc_endereco &endereco);
-        int inserir_dados(const string &nome, int &codigo, strc_endereco &endereco);
-        
-};
-
-int dados_cliente::inserir_dados() const{
-    cout << "\n\n\n\t\t\tDigite o nome dp cliente: ";
-    cin >> nome;
-    cout << "\n\n\t\t\tDigite o codigo do cliente: ";
-    cin >> codigo;
-    endereço 
-}
-
-class colecao_clientes{
-    
-    class dados_cliente{
-        string nome;
-        int codigo;
-        class class_endereco{
-            string rua;
-            string bairro;
-            int numero;
-        };
-        strc_endereco endereco;
-    };
-    
-    dados_cliente cliente;
-    colecao_clientes * proximo;
-    
-    public:
-        int cadastra_cliente(colecao_clientes &colecao){
-            
+class ConjuntoClientes {
+private:
+    ConjuntoClientes * inicio;
+    int tamanho;
+public:
+    int getConjuntoClientes(ConjuntoClientes &lista_clientes){
+        lista_clientes.inicio = NULL;
+        this->inicio = &lista_clientes;
+        this->tamanho = tamanho;
+    }
+    bool inicializar_lista_clientes(ConjuntoClientes &lista_clientes) {
+        lista_clientes.inicio = NULL;
+        this->inicio = &lista_clientes;
+        this->tamanho = 0;
+        return true;
+    }
+    int adicionarCliente(ConjuntoClientes &lista_clientes) {
+        if(lista_clientes.inicio == NULL){
+            dado_Cliente * novo = new dado_Cliente;
+            novo->proximo = NULL;
+            lista.inicio = novo;
+        } else {
+            dado_Cliente * novo = new dado_Cliente;
+            novo->proximo = lista.inicio;
+            lista.inicio = novo;
         }
+    }
+    int removerCliente(int codigo, const ConjuntoClientes &lista_clientes){
+        dado_Cliente * nav = lista_clientes.inicio;
+        while(codigo != nav.codigo){
+            nav = nav->proximo;
+        }
+    }
+    void imprimirClientes() const {
+        dado_Cliente * nav = lista_clientes.inicio;
+        while(nav->proximo != NULL) {
+            cout << "Código: " << dado_Cliente.getCodigo() << endl;
+            cout << "Nome: " << dado_Cliente.getNome() << endl;
+            cout << "Endereço: " << dado_Cliente.getEndereco() << endl;
+            cout << "Número de Telefone: " << dado_Cliente.getTelefone() << endl;
+            cout << endl;
+        }
+    }
 };
 
-class cliente{
-    string nome;
-    int codigo;
-    strc_endereco endereco;
-    
-};
+int main() {
+    setlocale(LC_ALL, "Portuguese");
 
-int main()
-{
-    cout << "Hello world!" << endl;
+    ConjuntoClientes conjunto;
+    Cliente cliente1(1, "Fulano", "Rua A", "Bairro X", 10);
+    Cliente cliente2(2, "Ciclano", "Rua B", "Bairro Y", 20);
+    Cliente cliente3(3, "Beltrano", "Rua C", "Bairro Z", 30);
+    conjunto.adicionarCliente(cliente1);
+    conjunto.adicionarCliente(cliente2);
+    conjunto.adicionarCliente(cliente3);
+    conjunto.imprimirClientes();
+    conjunto.removerCliente(2);
+    conjunto.imprimirClientes();
     return 0;
 }
