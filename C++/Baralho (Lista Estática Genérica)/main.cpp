@@ -46,7 +46,7 @@ int main(){
 
             case 3:
                 system("cls");
-                mostrar_elementos(el);
+                mostrar_cartas(el);
                 system("pause>nul");
                 system("cls");
                 break;
@@ -60,7 +60,11 @@ int main(){
 
             case 5:
                 system("cls");
-                qtd_Elemento(el);
+                if (el.tamanho == 0){
+                    cout << endl << endl << endl << "\t\t\tNão há nenhum elemento inserido! :( " << endl << endl;
+                } else {
+                    cout << endl << endl << endl << "\t\t\tQuantidade de Elemento inseridas: " << qtd_Elemento(el) << endl << endl;
+                }
                 system("pause>nul");
                 system("cls");
                 break;
@@ -68,6 +72,8 @@ int main(){
             case 6:
                 system("cls");
                 montar_baralho_poker(el);
+                cout << endl << endl << endl << "\t\t\tBaralho montado! :)";
+                system("pause>nul");
                 system("pause>nul");
                 system("cls");
                 break;
@@ -75,6 +81,7 @@ int main(){
             case 7:
                 system("cls");
                 embaralhar(el);
+                cout << endl << endl << endl << "\t\t\tCartas embaralhadas! :)";
                 system("pause>nul");
                 system("cls");
                 break;
@@ -89,6 +96,8 @@ int main(){
             case 9:
                 system("cls");
                 zerar_baralho(el);
+                cout << endl << endl << endl << "\t\t\tBaralho Excluído! :)";
+                system("pause>nul");
                 system("cls");
                 break;
 
