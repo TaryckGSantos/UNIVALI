@@ -140,8 +140,6 @@ using namespace std;
         cout << "\t\t\tQuantidade: " << quantidade << endl;
         cout << "\t\t\tID: " << id << endl;
         cout << "\t\t\tDescrição: " << descricao << endl;
-        system("pause>nul");
-        system("cls");
 
     //  ***Serviços***
     //laço de repetição
@@ -149,16 +147,12 @@ using namespace std;
         cout << "\t\t\tServiço: " << tipoServico << endl;
         cout << "\t\t\tPreço: " << preco << endl;
         cout << "\t\t\tID: " << id << endl;
-        system("pause>nul");
-        system("cls");
 
     //  ***PETs***
     //laço de repetição
         cout << endl << endl;
         cout << "\t\t\tTipo de PET: " << tipo << endl;
         cout << "\t\t\tID: " << id << endl;
-        system("pause>nul");
-        system("cls");
 
     //  ***Cliente***
     //laço de repetição
@@ -169,8 +163,6 @@ using namespace std;
         cout << "\t\t\tTelefone: " << telefone << endl;
         cout << "\t\t\tEndereço: Rua " << rua << " - " << bairro << endl;
         cout << "\t\t\tID: " << id << endl;
-        system("pause>nul");
-        system("cls");
 
 int main()
 {
