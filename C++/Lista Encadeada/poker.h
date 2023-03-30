@@ -87,6 +87,11 @@ int aux_inserir(Elemento<TIPO> &el){
 }
 
 template <typename TIPO>
+int aux_inserir(Elemento<TIPO> &el){
+
+}
+
+template <typename TIPO>
 int montar_baralho(TLista <TIPO> &lista){
 
     cartas aux;
