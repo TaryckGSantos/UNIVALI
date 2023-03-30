@@ -191,15 +191,14 @@ int zera_baralho(TLista <TIPO> &lista){
 
     Elemento <TIPO> * nav;
 
-    if(lista.inicio == NULL){
+    if(lista.tamanho == 0){
         return 1;
     } else {
-        while(nav->proximo != NULL){
+        while(lista.inicio != NULL){
             nav = lista.inicio;
             lista.inicio = nav->proximo;
             delete nav;
         }
-        delete nav;
         lista.inicio = NULL;
         lista.tamanho = 0;
     }
