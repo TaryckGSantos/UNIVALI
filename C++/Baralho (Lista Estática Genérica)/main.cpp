@@ -10,6 +10,7 @@ int main(){
     setlocale (LC_ALL ,"Portuguese");
 
     int aux_menu;
+    int cond_verif;
     Lista <cartas, 52> el;
     Elemento <cartas> aux;
 
@@ -25,8 +26,9 @@ int main(){
         cout << "\t\t6 - Fazer um baralho completo" << endl;
         cout << "\t\t7 - Embaralhar cartas" << endl;
         cout << "\t\t8 - Ordenar as cartas com Bubble" << endl;
-        cout << "\t\t9 - Remover todas as cartas" << endl;
-        cout << "\t\t10 - Encerrar a lista" << endl << endl;
+        cout << "\t\t9 - Ordenar as cartas com Quick" << endl;
+        cout << "\t\t10 - Remover todas as cartas" << endl;
+        cout << "\t\t11 - Encerrar a lista" << endl << endl;
         cout << "\t\tDigite o que você deseja fazer: ";
         cin >> aux_menu;
 
@@ -34,7 +36,7 @@ int main(){
 
             case 1:
                 system("cls");
-                menu_inserir(el,aux);
+                menu_inserir(el,aux, cond_verif);
                 system("cls");
                 break;
 
@@ -74,7 +76,6 @@ int main(){
                 montar_baralho_poker(el);
                 cout << endl << endl << endl << "\t\t\tBaralho montado! :)";
                 system("pause>nul");
-                system("pause>nul");
                 system("cls");
                 break;
 
@@ -89,11 +90,20 @@ int main(){
             case 8:
                 system("cls");
                 ordenar_bubble(el);
+                cout << endl << endl << endl << "\t\t\tBaralho ordenado! :)";
                 system("pause>nul");
                 system("cls");
                 break;
 
             case 9:
+                system("cls");
+                ordenar_quick(el, 0, el.tamanho-1);
+                cout << endl << endl << endl << "\t\t\tBaralho ordenado! :)";
+                system("pause>nul");
+                system("cls");
+                break;
+
+            case 10:
                 system("cls");
                 zerar_baralho(el);
                 cout << endl << endl << endl << "\t\t\tBaralho Excluído! :)";
@@ -101,13 +111,13 @@ int main(){
                 system("cls");
                 break;
 
-            case 10:
+            case 11:
                 system("cls");
                 cout << "\n\n\t\tLista encerrada! :)" << "\n\n\t\t";
                 system("pause>nul");
                 exit(0);
                 break;
         }
-    } while(aux_menu != 10);
+    } while(aux_menu != 11);
     return 0;
 }
