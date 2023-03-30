@@ -1,5 +1,5 @@
-#ifndef LISTA_ENC_H_INCLUDED
-#define LISTA_ENC_H_INCLUDED
+#ifndef LISTA_DP_ENC_H_INCLUDED
+#define LISTA_DP_ENC_H_INCLUDED
 
 template <typename TIPO>
 struct Elemento{
@@ -235,4 +235,24 @@ int embaralhar(TLista <TIPO> &lista){
     }
 }
 
-#endif // LISTA_ENC_H_INCLUDED
+template <typename TIPO>
+int ordenar_bubble(TLista <TIPO> &lista){
+    TIPO tmp;
+    int cond = 1;
+
+    do{
+        cond = 0;
+        Elemento <TIPO> * nav = lista.inicio;
+        while (nav->proximo != NULL){
+            if(nav->proximo->dado < nav->dado){
+                tmp = nav->dado;
+                nav->dado = nav->proximo->dado;
+                nav->proximo->dado = tmp;
+                cond = 1;
+            }
+            nav = nav->proximo;
+        }
+    } while(cond != 0);
+}
+
+#endif // LISTA_DP_ENC_H_INCLUDED
