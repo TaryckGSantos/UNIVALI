@@ -7,6 +7,20 @@ struct cartas{
 };
 
 template <typename TIPO>
+int verifica_insercao(TLista <TIPO> &lista, Elemento<TIPO> &el){
+    Elemento <TIPO> * nav = lista.inicio;
+
+    while(nav != NULL){
+        if(el.dado == nav->dado){
+            return 1;
+        } else {
+            nav = nav->proximo;
+        }
+    }
+    return 0;
+}
+
+template <typename TIPO>
 int mostrar_cartas(TLista <TIPO> &lista){
 
     Elemento<TIPO> aux;
@@ -132,11 +146,13 @@ int menu_remover(TLista <TIPO> &lista, Elemento<TIPO> &el){
                 system("cls");
                 cout << "\n\n\n\t\t\tNenhuma carta inserida! ";
                 system("pause>nul");
+                system("cls");
             } else {
                 remove_inicio(lista);
                 system("cls");
                 cout << "\n\n\n\t\t\tPrimeiro elemento removido! :) ";
                 system("pause>nul");
+                system("cls");
             }
             break;
 
@@ -145,11 +161,13 @@ int menu_remover(TLista <TIPO> &lista, Elemento<TIPO> &el){
                 system("cls");
                 cout << "\n\n\n\t\t\tNenhuma carta inserida! ";
                 system("pause>nul");
+                system("cls");
             } else {
                 remove_fim(lista);
                 system("cls");
                 cout << "\n\n\n\t\t\tÚltimo elemento removido! :) ";
                 system("pause>nul");
+                system("cls");
             }
             break;
 
@@ -158,6 +176,7 @@ int menu_remover(TLista <TIPO> &lista, Elemento<TIPO> &el){
                 system("cls");
                 cout << "\n\n\n\t\t\tNenhuma carta inserida! ";
                 system("pause>nul");
+                system("cls");
             } else {
                 system("cls");
                 int posicao_r;
@@ -166,11 +185,13 @@ int menu_remover(TLista <TIPO> &lista, Elemento<TIPO> &el){
                 if(posicao_r-1 > lista.tamanho || posicao_r-1 < 0){
                     cout << "\n\n\n\t\t\tNão há como remover neste local";
                     system("pause>nul");
+                    system("cls");
                 } else {
                     remove_posicao(lista, el.dado, posicao_r);
                     system("cls");
                     cout << "\n\n\n\t\t\tElemento na posição " << posicao_r << " removido! :) ";
                     system("pause>nul");
+                    system("cls");
                 }
             }
             break;
@@ -180,6 +201,7 @@ int menu_remover(TLista <TIPO> &lista, Elemento<TIPO> &el){
 template <typename TIPO>
 int menu_inserir(TLista <TIPO> &lista, Elemento<TIPO> &el){
     int aux_menu_inserir;
+    int aux_conf = 0;
 
     cout << endl << endl << endl;
     cout << "\t\t\tEscolha a maneira de inserção: ";
@@ -192,28 +214,55 @@ int menu_inserir(TLista <TIPO> &lista, Elemento<TIPO> &el){
 
         case 1:
             aux_inserir(el);
-            insere_inicio(lista, el.dado);
+            /*cout << endl << endl << "Chegou aqui!";*/
+            aux_conf = verifica_insercao(lista, el);
+            if(aux_conf == 0){
+                insere_inicio(lista, el.dado);
+                system("cls");
+            } else {
+                cout << endl << endl << endl << "\t\t\tEste elemento já existe! ";
+                system("pause>nul");
+                system("cls");
+            }
             break;
 
         case 2:
             aux_inserir(el);
-            insere_final(lista, el.dado);
+            aux_conf = verifica_insercao(lista, el);
+            if(aux_conf == 0){
+                insere_final(lista, el.dado);
+                system("cls");
+            } else {
+                cout << endl << endl << endl << "\t\t\tEste elemento já existe! ";
+                system("pause>nul");
+                system("cls");
+            }
             break;
 
         case 3:
-            system("cls");
             int posicao;
             aux_inserir(el);
-            cout << "\n\n\n\t\t\tEscolha a posição para inserir: ";
-            cin >> posicao;
-            if(posicao-1 > lista.tamanho){
-                cout << "\n\n\n\t\t\tNão há como inserir neste local";
-                system("pause>nul");
-            } else {
+            aux_conf = verifica_insercao(lista, el);
+            if(aux_conf == 0){
+                cout << "\n\n\n\t\t\tEscolha a posição para inserir: ";
+                cin >> posicao;
                 insere_posicao(lista, el.dado, posicao);
-                break;
+                system("cls");
+            } else {
+                cout << endl << endl << endl << "\t\t\tEste elemento já existe! ";
+                system("pause>nul");
+                system("cls");
             }
+            break;
     }
+}
+
+bool operator < (cartas a, cartas b){
+    return a.naipe*200+a.numero < b.naipe*200+b.numero;
+}
+
+bool operator == (cartas a, cartas b){
+    return a.naipe*200+a.numero == b.naipe*200+b.numero;
 }
 
 #endif // POKER_H_INCLUDED
