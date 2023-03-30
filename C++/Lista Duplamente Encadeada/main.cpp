@@ -14,7 +14,7 @@ int main()
     Elemento<cartas> el;
     cartas dado, au;
 
-    int cont = 1, aux_menu;
+    int aux_menu;
 
     inicializa_lista(lista);
 
@@ -62,13 +62,12 @@ int main()
                     cout << "\n\n\n\t\t\tNenhuma carta inserida! ";
                 } else {
                     int posicao_b;
-                    Elemento <cartas> aux;
                     cout << "\n\n\n\t\t\tEscolha a posição para buscar: ";
                     cin >> posicao_b;
                     mostrar_carta_busca(lista, posicao_b);
-                    system("pause>nul");
-                    system("cls");
                 }
+                system("pause>nul");
+                system("cls");
                 break;
 
             case 5:
