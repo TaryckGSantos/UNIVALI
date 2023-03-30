@@ -65,6 +65,8 @@ int insere_posicao(TLista <TIPO> &lista, TIPO dado, int &posicao){
 
     if(posicao == 1){
         insere_inicio(lista, dado);
+    } else if (posicao == lista.tamanho){
+        insere_final(lista, dado);
     } else {
         while(aux < posicao-2 && nav != NULL){
             nav = nav->proximo;
