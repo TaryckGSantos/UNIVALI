@@ -152,12 +152,11 @@ int zera_baralho(TLista <TIPO> &lista){
     if(lista.inicio == NULL){
         return 1;
     } else {
-        while(nav->proximo != NULL){
+        while(lista.inicio != NULL){
             nav = lista.inicio;
             lista.inicio = nav->proximo;
             delete nav;
         }
-        delete nav;
         lista.inicio = NULL;
         lista.tamanho = 0;
     }
@@ -203,7 +202,7 @@ int ordenar_bubble(TLista <TIPO> &lista){
         cond = 0;
         Elemento <TIPO> * nav = lista.inicio;
 
-        while (nav->proximo != NULL){
+        while (nav->proximo != NULL
             if(nav->proximo->dado < nav->dado){
                 tmp = nav->dado;
                 nav->dado = nav->proximo->dado;
