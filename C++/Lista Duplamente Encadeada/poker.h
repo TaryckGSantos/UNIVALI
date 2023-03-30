@@ -109,33 +109,37 @@ int mostrar_carta_busca(TLista <TIPO> &lista, int &posicao_b){
     Elemento <TIPO> * nav_inicio = lista.inicio;
     Elemento <TIPO> * nav_final = lista.fim;
 
-    if(posicao_b-1 > (lista.tamanho/2)-1){
-        aux = lista.tamanho-1;
-        while(aux < posicao_b-1){
-            nav_final = nav_final->anterior;
-        }
-        aux_b = *nav_final;
+    if(posicao_b > lista.tamanho || posicao_b-1 < 0){
+        cout << "\n\n\n\t\t\tNão há nenhuma carta neste local";
     } else {
-        while(aux > posicao_b-1){
-            nav_inicio = nav_inicio->proximo;
+        if(posicao_b-1 > (lista.tamanho/2)-1){
+            aux = lista.tamanho-1;
+            while(aux < posicao_b-1){
+                nav_final = nav_final->anterior;
+            }
+            aux_b = *nav_final;
+        } else {
+            while(aux > posicao_b-1){
+                nav_inicio = nav_inicio->proximo;
+            }
+            aux_b = *nav_inicio;
         }
-        aux_b = *nav_inicio;
-    }
 
-    cout << "\n\n\n\t\t\tCarta nessa posição: " << aux_b.dado.numero << " - ";
-    switch(aux_b.dado.naipe){
-        case 1:
-            cout<< "copas";
+        cout << "\n\n\n\t\t\tCarta nessa posição: " << aux_b.dado.numero << " - ";
+        switch(aux_b.dado.naipe){
+            case 1:
+                cout<< "copas";
+                    break;
+            case 2:
+                cout << "ouro";
                 break;
-        case 2:
-            cout << "ouro";
-            break;
-        case 3:
-            cout << "paus";
-            break;
-        case 4:
-            cout << "espadas";
-            break;
+            case 3:
+                cout << "paus";
+                break;
+            case 4:
+                cout << "espadas";
+                break;
+        }
     }
 }
 
@@ -186,8 +190,14 @@ int menu_inserir(TLista <TIPO> &lista, Elemento<TIPO> &el){
             if(aux_conf == 0){
                 cout << "\n\n\n\t\t\tEscolha a posição para inserir: ";
                 cin >> posicao;
-                insere_posicao(lista, el.dado, posicao);
-                system("cls");
+                if(posicao-1 > lista.tamanho || posicao-1 < 0){
+                    cout << "\n\n\n\t\t\tPosição impossível de inserir! :(";
+                    system("pause>nul");
+                    system("cls");
+                } else {
+                    insere_posicao(lista, el.dado, posicao);
+                    system("cls");
+                }
             } else {
                 cout << endl << endl << endl << "\t\t\tEste elemento já existe! ";
                 system("pause>nul");
@@ -251,7 +261,7 @@ int menu_remover(TLista <TIPO> &lista, Elemento<TIPO> &el){
                 int posicao_r;
                 cout << "\n\n\n\t\t\tEscolha a posição para remover: ";
                 cin >> posicao_r;
-                if(posicao_r-1 > lista.tamanho || posicao_r-1 < 0){
+                if(posicao_r > lista.tamanho || posicao_r-1 < 0){
                     cout << "\n\n\n\t\t\tNão há como remover neste local";
                     system("pause>nul");
                     system("cls");
