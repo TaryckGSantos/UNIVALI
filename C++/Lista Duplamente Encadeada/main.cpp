@@ -28,8 +28,9 @@ int main()
         cout << "\t\t\t6 - Fazer um baralho completo" << endl;
         cout << "\t\t\t7 - Embaralhar cartas" << endl;
         cout << "\t\t\t8 - Ordenar as cartas com Bubble" << endl;
-        cout << "\t\t\t9 - Remover todas as cartas" << endl;
-        cout << "\t\t\t10 - Encerrar a lista" << endl << endl;
+        cout << "\t\t\t9 - Ordenar as cartas com Quick" << endl;
+        cout << "\t\t\t10 - Remover todas as cartas" << endl;
+        cout << "\t\t\t11 - Encerrar a lista" << endl << endl;
         cout << "\t\t\tDigite o que você deseja fazer: ";
         cin >> aux_menu;
 
@@ -47,7 +48,7 @@ int main()
 
             case 3:
                 system("cls");
-                if(lista.tamanho == 0){
+                if(lista.tamanho == 0){ /// caso o baralho esteja zerado
                     cout << "\n\n\n\t\t\tNenhuma carta inserida! ";
                 } else {
                     mostrar_cartas(lista);
@@ -100,13 +101,35 @@ int main()
 
             case 8:
                 system("cls");
-                ordenar_bubble(lista);
-                cout << "\n\n\n\t\t\tLista ordenada! :)";
-                system("pause>nul");
-                system("cls");
+                if(lista.tamanho == 0){
+                    cout << "\n\n\n\t\t\tNenhum elemento na lista! ";
+                    system("pause>nul");
+                    system("cls");
+                } else {
+                    system("cls");
+                    ordenar_bubble(lista);
+                    cout << "\n\n\n\t\t\tLista ordenada! :)";
+                    system("pause>nul");
+                    system("cls");
+                }
                 break;
 
             case 9:
+                system("cls");
+                if(lista.tamanho == 0){
+                    cout << "\n\n\n\t\t\tNenhum elemento na lista! ";
+                    system("pause>nul");
+                    system("cls");
+                } else {
+                    quicksort_lista(lista);
+                    cout << "\n\n\n\t\t\tLista ordenada! :)";
+                    system("pause>nul");
+                    system("cls");
+                }
+                break;
+
+
+            case 10:
                 if(lista.tamanho == 0){
                     cout << "\n\n\n\t\t\tNenhum elemento na lista! ";
                 } else {
@@ -118,14 +141,13 @@ int main()
                 }
                 break;
 
-            case 10:
+            case 11:
                 system("cls");
                 cout << "\n\n\t\tLista encerrada! :)" << "\n\n\t\t";
                 system("pause>nul");
                 exit(0);
                 break;
         }
-    } while(aux_menu != 10);
-
+    } while(aux_menu != 11);
     return 0;
 }
