@@ -11,17 +11,18 @@ Msg2:     .asciiz "]: "
 Msg3:     .asciiz "\n\n A["
 buffer:   .asciiz ""
 
-vet: .word 0, 0, 0, 0, 0, 0, 0, 0 # Declaração do vetor com todos os elementos como 0
+vet:    .align 2
+	.space 32 # Declaração do vetor com todos os elementos como 0
 
     .text # segmento de código
 
 main:
 	li $t0, 0
+	li $t1, 0
 	li $s7, 8
 	la $s0, vet
 	
 	read_loop: # loop de leitura
-		move $t1, $zero
 		
 		# Print na mensagem 1
       		li  $v0, 4  # Chama o serviço 4 (print_string)
@@ -82,5 +83,3 @@ main:
 		addi $s0, $s0, 4
 		
 		bne $t0, $s7, write_loop # Caso $s1 seja diferente de $s2 retorna ao loop
-	
-	
