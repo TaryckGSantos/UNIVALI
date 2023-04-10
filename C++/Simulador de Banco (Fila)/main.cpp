@@ -31,12 +31,8 @@ int main()
     inserir_cliente(fila, dado3);
     inserir_cliente(fila, dado4);
     inserir_cliente(fila, dado5);
-    system("pause>nul");
 
-    mostrar_elementos(fila);
-    system("pause>nul");
-
-    /*simulacao(fila);*/
+    simulacao(fila);
 
     return 0;
 }
