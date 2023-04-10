@@ -15,7 +15,7 @@
 .text
 
 main:
-      # Print na mensagem 1
+      #Print na mensagem 1
       la a0, Msg1 # Msg1
       addi a7, x0, 4 # Chama o serviço 4 ( print_string )
       ecall
