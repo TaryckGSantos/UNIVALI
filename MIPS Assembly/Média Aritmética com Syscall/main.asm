@@ -22,6 +22,7 @@ main:
 	ecall
 	
 	li t0, 0 # zera o endereço t0
+	
 	# Lê a primeira variável
 	addi a7, x0, 5 # Chama o serviço 5 (read_int)
 	ecall
