@@ -69,32 +69,32 @@ template <typename TIPO>
 void mostrar_elementos(TFila<TIPO> &fila){
     TElemento<TIPO> aux;
     TElemento <TIPO> * nav = fila.inicio;
-    aux = *nav;
 
     while(nav != NULL){
+        aux = *nav;
         cout << endl << endl;
         cout << "Cliente: " << aux.dado.nome << "\t\t | \t\t Quantidade de boletos: " << aux.dado.unid_tempo;
         nav = nav->proximo;
-        aux = *nav;
     }
 }
 
 template <typename TIPO>
 int simulacao(TFila<TIPO> &fila){
     TElemento<TIPO> * nav = fila.inicio;
-    //TElemento<TIPO> * p = fila.inicio;
     cout << endl << endl;
-    while(nav != NULL){
+    while(nav->proximo != NULL){
         system("cls");
         mostrar_elementos(fila);
         nav->dado.unid_tempo--;
-        if(nav->dado.unid_tempo == 0){
+        if(nav->dado.unid_tempo < 0){
             remove_primeiro(fila);
             nav = nav->proximo;
         }
         system("pause>nul");
     }
+    system("cls");
+    cout << endl << endl << "\t\t\tFila encerrada!\n\n";
+    system("pause>nul");
 }
-
 
 #endif // CLIENTES_H_INCLUDED
