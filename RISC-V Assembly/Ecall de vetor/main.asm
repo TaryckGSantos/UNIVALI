@@ -1,6 +1,5 @@
 # Disciplina: Arquitetura e Organização de Processadores
-# Atividade: Avaliação 01 – Programação em Linguagem de
-Montagem
+# Atividade: Avaliação 01 – Programação em Linguagem de Montagem
 # Exercício 03
 # Aluno: Taryck Gean Santos Pego
 
