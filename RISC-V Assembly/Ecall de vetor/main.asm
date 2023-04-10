@@ -4,6 +4,7 @@
 # Aluno: Taryck Gean Santos Pego
 
 .data # segmento de dados
+      
       newline: .string "\n"
       Msg1: .string "\n\n Entre com A["
       Msg2: .string "]: "
