@@ -1,10 +1,11 @@
 # Disciplina: Arquitetura e Organização de Processadores
 # Atividade: Avaliação 01 – Programação em Linguagem de Montagem
 # Exercício 03
-# Aluno: Taryck Gean Santos Pego
+# Aluno: Caua Domingos e Taryck Santos
 
 .data # segmento de dados
 
+	Vetor_A: .word 0, 0, 0, 0, 0, 0, 0, 0
 	newline: .asciiz "\n"
 	Msg1: .asciiz "\n\n Entre com o tamanho do Vetor_Aor (máx. = 8): "
 	Msg2: .asciiz "\n\n Valor inválido! "
@@ -13,15 +14,13 @@
 	Msg5: .asciiz "\n\n Digite o índice do valor a ser impresso: " 
 	Msg6: .asciiz "\n\n O elemento do vetor na posição "
 	Msg7: .asciiz " possui o valor: "
-	buffer: .asciiz ""
-	Vetor_A: .word 0, 0, 0, 0, 0, 0, 0, 0
 	
 .text # segmento de código
 
 main:
 
-	li $s1, 1 # Declarando t0 = 0
-	li $s6, 8
+	li $s1, 1 # Declarando s1 = 1
+	li $s6, 8 # Declarando s6 = 8
 
 	# Print na mensagem 1
 	li $v0, 4 # Chama o serviço 4 (print_string)
@@ -32,22 +31,22 @@ main:
 	li $v0, 5 # Chama o serviço 5 (read_int)
 	syscall
 		
-	# Move o inteiro para o endereço t1
+	# Move o inteiro para o endereço s7
 	move $s7, $v0
 	
-	slt $t8, $s6, $s7
-	beq $t8, $s1, mensagem_invalida
+	slt $t8, $s6, $s7 # Caso o inteiro inserido seja maior que 8, t8 = 1
+	beq $t8, $s1, mensagem_invalida # Caso t8 e s1 sejam iguais, saltam para "mensagem invalida"
 	
-	li $t8, 0
+	li $t8, 0 # limpa t8
 	
-	slti $t8, $s7, 2
-	beq $t8, $s1, mensagem_invalida
+	slti $t8, $s7, 2 # caso s7 seja menor que 2, t8 = 1
+	beq $t8, $s1, mensagem_invalida # Caso t8 e s1 sejam iguais, saltam para "mensagem invalida"
 		
 	loop_inserir_vetor:
 			
 		# Print na mensagem 1
 		li $v0, 4 # Chama o serviço 4 (print_string)
-		la $a0, Msg3 # Msg1
+		la $a0, Msg3 # Msg3
 		syscall
 		
 		# Print na constante $t0
@@ -57,17 +56,16 @@ main:
 		
 		# Print na mensagem 2
 		li $v0, 4 # Chama o serviço 4 (print_string)
-		la $a0, Msg4 # Msg2
+		la $a0, Msg4 # Msg4
 		syscall
 		
 		# Lê a variável
 		li $v0, 5 # Chama o serviço 5 (read_int)
 		syscall
 		
-		# Move o inteiro para o endereço t1
-		move $t1, $v0
+		move $t1, $v0 # Move o inteiro para o endereço t1
 		
-		sw $t1, Vetor_A($s0) # Coloca na posição $s0 o valor contido em $t1
+		sw $t1, Vetor_A($s0) # Coloca na posição $s0 do VEtor_A o valor contido em $t1
 		
 		addi $t0, $t0, 1 # adiciona 1 em t0
 		addi $s0, $s0, 4 # adiciona 4 (1 word) em s0
@@ -75,29 +73,31 @@ main:
 	
 	inserir_indice_busca:
 		
-		li $t0, 0 # adiciona 1 em t0
-		li $t1, 0 # adiciona 1 em t0
-		li $s0, 0 # adiciona 4 (1 word) em s0
+		li $t0, 0 # zera t0
+		li $t1, 0 # zera t1
+		li $s0, 0 # zera s0
 		
 		# Print na mensagem 1
 		li $v0, 4 # Chama o serviço 4 (print_string)
-		la $a0, Msg5 # Msg1
+		la $a0, Msg5 # Msg5
 		syscall
 		
 		# Lê a variável
 		li $v0, 5 # Chama o serviço 5 (read_int)
 		syscall 
 		
-		# Move o inteiro para o endereço t1
-		move $s1, $v0
+		move $s2, $v0 # Move o inteiro para o endereço s1
 		
-		slt $t8, $s7, $s1
-		beq $t8, $s1, mensagem_invalida_busca
+		sub $s5, $s7, $s1 # Subtrai 1 de s7 e insere em s5
+		
+		slt $t8, $s5, $s2 #  Caso o indice inserido seja maior que o numero de posições no vetor, t8 = 1
+		beq $t8, $s1, mensagem_invalida_busca # se t8 for igual a s1
 	
 		li $t8, 0
 	
-		slti $t8, $s1, 0
+		slti $t8, $s2, 0
 		beq $t8, $s1, mensagem_invalida_busca
+		
 		li $s0, 0
 		
 		j loop_buscar_vetor
@@ -122,7 +122,7 @@ main:
 		
 	loop_buscar_vetor:
 		
-		beq $t0, $s1, mostrar_vetor_buscado
+		beq $t0, $s2, mostrar_vetor_buscado
 		addi $s0, $s0, 4
 		addi $t0, $t0, 1
 		j loop_buscar_vetor
