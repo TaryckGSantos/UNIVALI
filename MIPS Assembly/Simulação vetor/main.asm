@@ -11,8 +11,8 @@
 	Msg3: .asciiz "\n\n Vetor_A["
 	Msg4: .asciiz "]: "
 	Msg5: .asciiz "\n\n Digite o índice do valor a ser impresso: " 
-	Msg6: .asciiz "\n\n O elemento do vetor na posição: "
-	Msg7: .asciiz " possui o valor "
+	Msg6: .asciiz "\n\n O elemento do vetor na posição "
+	Msg7: .asciiz " possui o valor: "
 	buffer: .asciiz ""
 	Vetor_A: .word 0, 0, 0, 0, 0, 0, 0, 0
 	
@@ -20,12 +20,8 @@
 
 main:
 
-	li $t0, 0 # Declarando t0 = 0
-	li $t1, 0 # Declarando t1 = 0
-	li $t8, 0 # Declarando t0 = 0
-	li $t9, 1 # Declarando t0 = 0
-	li $s7, 0 # Declarando s7 = 0
-	li $s0, 0 # declarando s0 como o primeiro endereço do Vetor_Aor
+	li $s1, 1 # Declarando t0 = 0
+	li $s6, 8
 
 	# Print na mensagem 1
 	li $v0, 4 # Chama o serviço 4 (print_string)
@@ -39,8 +35,13 @@ main:
 	# Move o inteiro para o endereço t1
 	move $s7, $v0
 	
-	slti $t8, $s7, 9
-	bne $t8, $t9, mensagem_invalida
+	slt $t8, $s6, $s7
+	beq $t8, $s1, mensagem_invalida
+	
+	li $t8, 0
+	
+	slti $t8, $s7, 2
+	beq $t8, $s1, mensagem_invalida
 		
 	loop_inserir_vetor:
 			
@@ -71,10 +72,11 @@ main:
 		addi $t0, $t0, 1 # adiciona 1 em t0
 		addi $s0, $s0, 4 # adiciona 4 (1 word) em s0
 		bne $t0, $s7, loop_inserir_vetor # Caso $t0 seja diferente de $s7 retorna ao loop
+	
+	inserir_indice_busca:
 		
 		li $t0, 0 # adiciona 1 em t0
 		li $t1, 0 # adiciona 1 em t0
-		li $s1, 0 # adiciona 1 em t0
 		li $s0, 0 # adiciona 4 (1 word) em s0
 		
 		# Print na mensagem 1
@@ -84,11 +86,21 @@ main:
 		
 		# Lê a variável
 		li $v0, 5 # Chama o serviço 5 (read_int)
-		syscall
+		syscall 
 		
 		# Move o inteiro para o endereço t1
 		move $s1, $v0
-		#j loop_buscar_vetor
+		
+		slt $t8, $s7, $s1
+		beq $t8, $s1, mensagem_invalida_busca
+	
+		li $t8, 0
+	
+		slti $t8, $s1, 0
+		beq $t8, $s1, mensagem_invalida_busca
+		li $s0, 0
+		
+		j loop_buscar_vetor
 		
 	mensagem_invalida: 
 		
@@ -99,10 +111,42 @@ main:
 		
 		j main
 		
-	#loop_buscar_vetor:
+	mensagem_invalida_busca:
 		
-		#beq $t1, $t0, $s7
-		#addi $t0, 1
-	#	bne $t1, $zero, loop_buscar_vetor
+		# Print na mensagem 1
+		li $v0, 4 # Chama o serviço 4 (print_string)
+		la $a0, Msg2 # Msg1
+		syscall	
 		
-	#	O elemento do vetor na posição
+		j inserir_indice_busca
+		
+	loop_buscar_vetor:
+		
+		beq $t0, $s1, mostrar_vetor_buscado
+		addi $s0, $s0, 4
+		addi $t0, $t0, 1
+		j loop_buscar_vetor
+		
+	mostrar_vetor_buscado:
+		
+		# Print na mensagem 1
+		li $v0, 4 # Chama o serviço 4 (print_string)
+		la $a0, Msg6 # Msg1
+		syscall
+		
+		# Print na constante $t0
+		li $v0, 1 # Chama o serviço 1 (print_int)
+		move $a0, $t0 # Carrega a constante de $t0 para o syscall
+		syscall
+		
+		# Print na mensagem 1
+		li $v0, 4 # Chama o serviço 4 (print_string)
+		la $a0, Msg7 # Msg1
+		syscall
+		
+		lw $s3, Vetor_A($s0) 
+		
+		# Print na constante $t0
+		li $v0, 1 # Chama o serviço 1 (print_int)
+		move $a0, $s3 # Carrega a constante de $t0 para o syscall
+		syscall
