@@ -1,6 +1,6 @@
 # Disciplina: Arquitetura e Organização de Processadores
-# Atividade: Avaliação 01 – Programação em Linguagem de Montagem
-# Exercício 03
+# Atividade: Avaliação 02 – Programação em Linguagem de Montagem
+# Exercício 01
 # Aluno: Caua Domingos e Taryck Santos
 
 .data # segmento de dados
