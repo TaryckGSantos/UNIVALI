@@ -20,6 +20,7 @@ main:
 
 	li s1, 1 # Declarando s1 = 1
 	li s6, 8 # Declarando s6 = 8
+	la s0, Vetor_A # Declarando s0 como posição 0 do vetor
 
 	# Print na mensagem 1
 	li a7, 4 # Chama o serviço 4 (print_string)
@@ -40,11 +41,9 @@ main:
 	slti t6, s7, 2 # caso s7 seja menor que 2, t6 = 1
 	beq t6, s1, mensagem_invalida # Caso t6 e s1 sejam iguais, saltam para "mensagem invalida"
 	
-	la s0, Vetor_A
-		
 	loop_inserir_vetor:
 			
-	     # Print na mensagem 3
+	        # Print na mensagem 3
 		li a7, 4 
 		la a0, Msg3
 		ecall
@@ -75,6 +74,7 @@ main:
 		
 		li t0, 0 # zera t0
 		li t1, 0 # zera t1
+		la s0, Vetor_A # Declarando s0 como posição 0 do vetor
 		
 		# Print na mensagem 5
 		li a7, 4 
@@ -92,12 +92,10 @@ main:
 		slt t6, s5, s2 #  Caso o indice inserido seja maior que o numero de posições no vetor, t6 = 1
 		beq t6, s1, mensagem_invalida_busca # se t6 for igual a s1, pula pra mensagem_invalida_busca
 	
-		li t6, 0
+		li t6, 0 # zera t6
 	
 		slti t6, s2, 0 #  Caso o indice inserido seja menor que 0, t6 = 1
-		beq t6, s1, mensagem_invalida_busca # se t6 for igual a s1, pula pra mensagem_invalida_busca
-		
-		la s0, Vetor_A # zera s0 
+		beq t6, s1, mensagem_invalida_busca # se t6 for igual a s1, pula pra mensagem_invalida_buscala s0, Vetor_A #  
 		
 		j loop_buscar_vetor
 		
@@ -145,7 +143,7 @@ main:
 		la a0, Msg7 
 		ecall
 		
-		lw t5, 0(s0) # carrega em s3 o valor contido naquela posição do vetor 
+		lw t5, 0(s0) # carrega em t5 o valor contido naquela posição do vetor 
 		
 		# Print na constante s3
 		li a7, 1 
