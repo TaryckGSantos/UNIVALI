@@ -17,7 +17,7 @@ template <typename TIPO>
 int inicializa_fila(TFila <TIPO> &fila){
     fila.inicio = NULL;
     fila.tamanho = 0;
-    cout<<endl<<"Fila Inicializada"<<endl;
+    cout<<endl<<"\n\n\t\tFila Inicializada!"<<endl;
 }
 
 template <typename TIPO>
