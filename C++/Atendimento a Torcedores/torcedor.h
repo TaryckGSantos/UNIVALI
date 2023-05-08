@@ -11,8 +11,8 @@ int montar_fila(TFila <Torcedor> &fila,int &carga_inicial){
     Torcedor aux;
     int varT,varP;
     for(int i=0;i<carga_inicial;i++){
-        varT=rand()%100+1;
-        varP=rand()%100+1;
+        varT = rand()%100+1;
+        varP = rand()%100+1;
         if(varP<=95){
             aux.tipo_torcedor="n";
         }
