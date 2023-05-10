@@ -17,13 +17,18 @@ template <typename TIPO>
 int inicializa_fila(TFila <TIPO> &fila){
     fila.inicio = NULL;
     fila.tamanho = 0;
-    cout<<endl<<"\n\n\t\tFila Inicializada!"<<endl;
+    ///cout<<endl<<"Fila Inicializada"<<endl;
 }
 
 template <typename TIPO>
-int entrar_na_fila(TFila <TIPO> &fila, TIPO dado,int carga_inicial){
+int tamanho_fila(TFila <TIPO> &fila){
+    return fila.tamanho;
+}
+
+template <typename TIPO>
+int entrar_na_fila(TFila <TIPO> &fila, TIPO dado){
     TElementoF <TIPO> * nav = fila.inicio;
-    TElementoF<TIPO> * novo = novo_elemento_fila_de(dado,carga_inicial);
+    TElementoF<TIPO> * novo = novo_elemento_fila_de(dado);
     if(fila.inicio != NULL){
         while(nav->proximo != NULL){
             nav = nav->proximo;
@@ -43,7 +48,7 @@ int atender(TFila <TIPO> &fila){
     TIPO tmp;
     TElementoF <TIPO> * nav = fila.inicio;
     if(nav==NULL){
-        cout<<"\t\tNão há nenhuma pessoa na fila \t\t";
+        //cout<<"\t\tNão há nenhuma pessoa na fila \t\t";
         return false;
     }
     tmp=nav->dado;
@@ -56,16 +61,16 @@ int atender(TFila <TIPO> &fila){
         delete nav;
         fila.tamanho--;
     }
-    cout<<"\t\tPessoa do inicio da fila foi removida\t\t\n\n";
-    imprimir_pFila(tmp);
+    ///cout<<"\nPessoa do inicio da fila foi removida\t\t\n";
+    ///777777imprimir_pFila(tmp);
     return true;
 }
 
 template <typename TIPO>
-TElementoF<TIPO> * novo_elemento_fila_de(TIPO &dado,int carga_inicial){
-    if(carga_inicial==0){
+TElementoF<TIPO> * novo_elemento_fila_de(TIPO &dado/*,int carga_inicial*/){
+    /*if(carga_inicial==0){
         insere_dados(dado);
-    }
+    }*/
     TElementoF<TIPO> * novo = new TElementoF<TIPO>;
     novo->dado = dado;
     novo->proximo = NULL;
@@ -85,18 +90,17 @@ bool imprime_fila(TFila<TIPO>fila){
     int i=1;
     TElementoF <TIPO> *nav = fila.inicio;
     if(fila.inicio==NULL){
-        cout<<"\t\tNão há nenhuma pessoa na fila \t\t";
+        cout<<"\n\t\tNão há nenhuma pessoa na fila \t\t"<<endl;
         return false;
     }
     else{
         while(nav!=NULL){
+            ///cout<<"\tPosição na Fila: "<<i;
             imprimir_pFila(nav->dado);
-            cout<<"Posição na Fila: "<<i<<endl<<endl;
             nav=nav->proximo;
             i++;
         }
         return true;
     }
 }
-
 #endif // ATENDIMENTO_H_INCLUDED
