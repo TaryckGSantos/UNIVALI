@@ -4,7 +4,6 @@ using namespace std;
 #include <stdlib.h>
 #include <conio.h>
 #include <windows.h>
-#include <iostream>
 #include "Atendimento.h"
 #include "Torcedor.h"
 
