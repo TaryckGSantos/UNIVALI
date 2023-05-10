@@ -7,73 +7,95 @@ struct Torcedor{
     int posicao;
 };
 
-int montar_fila(TFila <Torcedor> &fila,int &carga_inicial){
-    Torcedor aux;
-    int varT,varP;
-    for(int i=0;i<carga_inicial;i++){
-        varT = rand()%100+1;
-        varP = rand()%100+1;
-        if(varP<=95){
-            aux.tipo_torcedor="n";
-        }
-        else{
-            aux.tipo_torcedor="s";
-        }
-        if(aux.tipo_torcedor=="s"){
-            if(varT<=85){
-                aux.qtd_tempo=1;
-            }
-            else{
-                aux.qtd_tempo=2;
-            }
-        }
-        else if(aux.tipo_torcedor=="n"){
-            if(varT<=25){
-                aux.qtd_tempo=1;
-            }
-            else if(varT<=55){
-                aux.qtd_tempo=2;
-            }
-            else{
-                aux.qtd_tempo=3;
-            }
-        }
-        entrar_na_fila(fila,aux,carga_inicial);
+int montar_filaST(TFila <Torcedor> &filaST,Torcedor &aux,int &carga_inicial){
+    int varT;
+    aux.tipo_torcedor="s";
+    varT=rand()%100+1;
+    if(varT<=85){
+        aux.qtd_tempo=1;
     }
-    carga_inicial=0;
+    else{
+        aux.qtd_tempo=2;
+    }
+    carga_inicial--;
+}
+
+int montar_filaN(TFila <Torcedor> &filaN,Torcedor &aux,int &carga_inicial){
+    int varT;
+    aux.tipo_torcedor="n";
+    varT=rand()%100+1;
+    if(varT<=25){
+        aux.qtd_tempo=1;
+    }
+    else if(varT<=55){
+        aux.qtd_tempo=2;
+    }
+    else{
+        aux.qtd_tempo=3;
+    }
+    carga_inicial--;
+}
+
+int verifica_menor(TFila <Torcedor> &fila,int &menor){
+    if(menor>fila.tamanho){
+        menor=fila.tamanho;
+    }
+    return menor;
 }
 
 void insere_dados(Torcedor &aux){
-    cout<<"Digite o tipo de Torcedor: "<<endl;
-    cin>>aux.tipo_torcedor;
+    int varT,varP;
+    varT=rand()%100+1;
+    varP=rand()%100+1;
+    if(varP<=95){
+        aux.tipo_torcedor="n";
+    }
+    else{
+        aux.tipo_torcedor="s";
+    }
+
     if(aux.tipo_torcedor=="s"){
-        aux.qtd_tempo=rand()%2+1;
+        if(varT<=85){
+            aux.qtd_tempo=1;
+        }
+        else{
+            aux.qtd_tempo=2;
+        }
     }
     else if(aux.tipo_torcedor=="n"){
-        aux.qtd_tempo=rand()%3+1;
+        if(varT<=25){
+            aux.qtd_tempo=1;
+        }
+        else if(varT<=55){
+            aux.qtd_tempo=2;
+        }
+        else{
+            aux.qtd_tempo=3;
+        }
     }
-    //posicao(aux,tam);
 }
 
-void imprimir_pFila(Torcedor torcedores){
+void imprimir_pFila(Torcedor torcedores){/*
     if(torcedores.tipo_torcedor=="s"){
-        cout<<"Sócio Torcedor "<<endl;
+        cout<<"\tSócio Torcedor ";
     }
     else if(torcedores.tipo_torcedor=="n"){
-        cout<<"Torcedor Normal "<<endl;
-    }
-    cout<<"Quantidade de Tempo: "<<torcedores.qtd_tempo<<endl/*<<"Posição: "<<torcedores.posicao<<endl*/;
+        cout<<"\tTorcedor Normal ";
+    }*/
+
+    cout<<"\t"/*Quantidade de <<"Tempo: "*/<<torcedores.qtd_tempo<<endl;
 }
 
-void zerar(){
-
+void zerar(TFila<Torcedor>&fila){
+    inicializa_fila(fila);
 }
 
 bool rodar_tempo(TFila<Torcedor>&fila){
     TElementoF <Torcedor> *nav = fila.inicio;
     Torcedor aux;
     if(fila.inicio==NULL){
-        cout<<"\t\tNão há nenhuma pessoa na fila \t\t";
+        ///cout<<"\n\t\tNão há nenhuma pessoa na fila \n";
+        return false;
     }
     else{
         aux=nav->dado;
@@ -88,5 +110,4 @@ bool rodar_tempo(TFila<Torcedor>&fila){
     }
     nav->dado=aux;
 }
-
 #endif // TORCEDOR_H_INCLUDED
