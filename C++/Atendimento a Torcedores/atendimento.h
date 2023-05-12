@@ -2,105 +2,74 @@
 #define ATENDIMENTO_H_INCLUDED
 
 template <typename TIPO>
-struct TElementoF{
+struct TElementoF{ // Template de elemento
     TIPO dado;
     TElementoF<TIPO> * proximo;
 };
 
 template<typename TIPO>
-struct TFila{
+struct TFila{ // Template da fila
     TElementoF<TIPO> * inicio;
     int tamanho;
-} ;
+};
 
 template <typename TIPO>
-int inicializa_fila(TFila <TIPO> &fila){
+int inicializa_fila(TFila <TIPO> &fila){ // Função de inicialização da fila
     fila.inicio = NULL;
     fila.tamanho = 0;
-    ///cout<<endl<<"Fila Inicializada"<<endl;
 }
 
 template <typename TIPO>
-int tamanho_fila(TFila <TIPO> &fila){
-    return fila.tamanho;
-}
-
-template <typename TIPO>
-int entrar_na_fila(TFila <TIPO> &fila, TIPO dado){
-    TElementoF <TIPO> * nav = fila.inicio;
-    TElementoF<TIPO> * novo = novo_elemento_fila_de(dado);
-    if(fila.inicio != NULL){
-        while(nav->proximo != NULL){
+int entrar_na_fila(TFila <TIPO> &fila, TIPO dado){ // Função de entrar na fila
+    TElementoF <TIPO> * nav = fila.inicio; // Nav = inicio da fila
+    TElementoF<TIPO> * novo = novo_elemento_fila_de(dado); // Declaração de novo elemento
+    if(fila.inicio != NULL){ // Caso não seja o primeiro elemento a ser inserido
+        while(nav->proximo != NULL){ // Navegação para o ultimo elemento
             nav = nav->proximo;
         }
-        novo->proximo = NULL;
-        nav->proximo = novo;
-        fila.tamanho++;
-    } else {
-        novo->proximo = fila.inicio;
-        fila.inicio = novo;
-        fila.tamanho++;
+        novo->proximo = NULL; // o novo aponta pra null
+        nav->proximo = novo; // Nav aponta pro novo
+        fila.tamanho++; // tamanho da fila aumenta
+    } else { // caso seja o primeiro a ser inserido
+        novo->proximo = fila.inicio; // novo aponta pra null
+        fila.inicio = novo; // o inicio da fila = novo
+        fila.tamanho++; // tamanho da fila aumenta
     }
 }
 
 template <typename TIPO>
-int atender(TFila <TIPO> &fila){
-    TIPO tmp;
-    TElementoF <TIPO> * nav = fila.inicio;
-    if(nav==NULL){
-        //cout<<"\t\tNão há nenhuma pessoa na fila \t\t";
-        return false;
+TIPO atender(TFila <TIPO> &fila){ // Função para retirada do torcedor com 0 de tempo
+    TIPO tmp; // variavel auxiliar
+    TElementoF <TIPO> * nav = fila.inicio; // criação de nav = primeiro elemento
+    if(nav->proximo == NULL){ // caso só haja 1 elemento na fila
+        tmp=nav->dado; // variavel auxiliar recebe o dado de nav
+        fila.inicio = NULL; // inicio da fila = null
+        delete nav; // remoção de nav
+        fila.tamanho--; // diminuição do tamanho da fila
+        return tmp; // retorno dos dados
+    } else { // caso não seja o unico elemento
+        tmp=nav->dado; // variavel auxiliar recebe o dado de nav
+        fila.inicio = nav->proximo; // inicio da fila = segundo elemento
+        delete nav; // remoção de nav
+        fila.tamanho--; // diminuição do tamanho da fila
+        return tmp; // retorno dos dados
     }
-    tmp=nav->dado;
-    if(nav->proximo == NULL){
-        fila.inicio = NULL;
-        delete nav;
-        fila.tamanho--;
-    } else {
-        fila.inicio = nav->proximo;
-        delete nav;
-        fila.tamanho--;
-    }
-    ///cout<<"\nPessoa do inicio da fila foi removida\t\t\n";
-    ///777777imprimir_pFila(tmp);
-    return true;
 }
 
 template <typename TIPO>
-TElementoF<TIPO> * novo_elemento_fila_de(TIPO &dado/*,int carga_inicial*/){
-    /*if(carga_inicial==0){
-        insere_dados(dado);
-    }*/
-    TElementoF<TIPO> * novo = new TElementoF<TIPO>;
-    novo->dado = dado;
-    novo->proximo = NULL;
-}
-
-template <typename TIPO>
-TIPO primeiro(TFila <TIPO> fila,TIPO dado){
-    TElementoF <TIPO> * nav = fila.inicio;
-    if(nav!=NULL){
-        dado=nav->dado;
-        return dado;
-    }
-}
-
-template<typename TIPO>
-bool imprime_fila(TFila<TIPO>fila){
-    int i=1;
-    TElementoF <TIPO> *nav = fila.inicio;
+TIPO * primeiro(TFila <TIPO> &fila){ // Função para retirada do torcedor com 0 de tempo
     if(fila.inicio==NULL){
-        cout<<"\n\t\tNão há nenhuma pessoa na fila \t\t"<<endl;
-        return false;
-    }
-    else{
-        while(nav!=NULL){
-            ///cout<<"\tPosição na Fila: "<<i;
-            imprimir_pFila(nav->dado);
-            nav=nav->proximo;
-            i++;
-        }
-        return true;
+        return NULL;
+    } else {
+        return &(fila.inicio->dado);
     }
 }
+
+template <typename TIPO>
+TElementoF<TIPO> * novo_elemento_fila_de(TIPO &dado){ // criação de um novo elemento
+    TElementoF<TIPO> * novo = new TElementoF<TIPO>; // novo ponteiro de TElementoF
+    novo->dado = dado; // recebe o dado que veio por parametro
+    novo->proximo = NULL; // aponta pra NULL
+}
+
 #endif // ATENDIMENTO_H_INCLUDED
