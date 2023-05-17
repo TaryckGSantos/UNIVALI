@@ -6,7 +6,7 @@ using namespace std;
 #include <cstring>
 #include <string.h>
 
-#include "testes.h"
+#include "teste.h"
 
 #define MAX 4
 #define MAX_HORAIOS 5
@@ -48,6 +48,8 @@ int main()
 
     string select;
 
+    int aux;
+
     filmes * vet_filmes;
     vet_filmes = new filmes[MAX];
 
@@ -61,6 +63,6 @@ int main()
     vet_filmes[0].horarios[2] = 11.20;
     vet_filmes[0].horarios[3] = 22.15;
 
-    menu_acesso(vet_filmes);
+    menu_acesso(vet_filmes, aux);
     return 0;
 }
