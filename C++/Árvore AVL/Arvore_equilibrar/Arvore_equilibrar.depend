@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1684767854 source:c:\algoritmos\arvore_equilibrar\main.cpp
+	<iostream>
+	"elementos.h"
+
+1684768290 c:\algoritmos\arvore_equilibrar\elementos.h
+
