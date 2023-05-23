@@ -1,5 +1,3 @@
-// Para movimentar: aperte w sem CAPS ativado 
-
 #include <iostream>
 #include <windows.h>
 #include <conio.h>
@@ -12,18 +10,24 @@ using namespace std;
 
 int main()
 {
+    ///ALERTA: NÃO MODIFICAR O TRECHO DE CÓDIGO, A SEGUIR.
+    //INICIO: COMANDOS PARA QUE O CURSOR NÃO FIQUE PISCANDO NA TELA
     HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_CURSOR_INFO     cursorInfo;
     GetConsoleCursorInfo(out, &cursorInfo);
-    cursorInfo.bVisible = false; 
+    cursorInfo.bVisible = false; // set the cursor visibility
     SetConsoleCursorInfo(out, &cursorInfo);
+    //FIM: COMANDOS PARA QUE O CURSOR NÃO FIQUE PISCANDO NA TELA
+    //INÍCIO: COMANDOS PARA REPOSICIONAR O CURSOR NO INÍCIO DA TELA
     COORD coord;
+    //FIM: COMANDOS PARA REPOSICIONAR O CURSOR NO INÍCIO DA TELA
+    ///ALERTA: NÃO MODIFICAR O TRECHO DE CÓDIGO, ACIMA.
 
     int random1,random2,random3; //Utilizado para criar obstaculos aleatoriamente
     srand(time(NULL));
-    random1=rand()%18;
-    random2=rand()%18;
-    random3=rand()%18;
+    random1=rand()%10;
+    random2=rand()%10;
+    random3=rand()%10;
 
     int bird_x = 5, bird_y = 10;
     int obstaculo_x = 30, obstaculo_x2 = 60, obstaculo_x3 = 90, obstaculo_y, obstaculo_y2, obstaculo_y3;
@@ -38,24 +42,24 @@ int main()
         cout<<"--------------------------------------------------------------------------------------------";
         cout<< "\n- Pontuacao: " << pontuacao << endl; // Pontuação exibida na parte inferior esquerda do game
 
-        /// POSICIONAMENTO DO PÁSSARO
-        coord.X = bird_x;    coord.Y = bird_y;
+    /// POSICIONAMENTO DO PÁSSARO
+    coord.X = bird_x;    coord.Y = bird_y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+    cout<<char(190); //Caractere utilizado para simbolizá-lo
+
+
+    ///POSICIONA O OBSTÁCULO
+    obstaculo_y=1; // Valor inicial dado ao obstáculo 1.
+    while(obstaculo_y<20){ // Enquanto o valor de Y estiver dentro dos padrões estabelecidos, o laço será repetido.
+        coord.X = obstaculo_x;    coord.Y = obstaculo_y; //
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-        cout<<char(190); //Caractere utilizado para simbolizá-lo
-
-
-        ///POSICIONA O OBSTÁCULO
-        obstaculo_y=1; // Valor inicial dado ao obstáculo 1.
-        while(obstaculo_y<20){ // Enquanto o valor de Y estiver dentro dos padrões estabelecidos, o laço será repetido.
-            coord.X = obstaculo_x;    coord.Y = obstaculo_y; //
-            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-            if(obstaculo_y<random1|| obstaculo_y>random1+4){ // Valores dados para a ocupação do obstáculo no eixo Y
-                cout<<char(219); // Caractere escolhido para representar as colunas
+        if(obstaculo_y<random1|| obstaculo_y>random1+4){ // Valores dados para a ocupação do obstáculo no eixo Y
+            cout<<char(219); // Caractere escolhido para representar as colunas
             } else { // Caso não se encaixe nos padrões estabelecidos, haverá uma abertura nos obstáculos.
-                    cout<<" "; // Caractere de espaçamento
+                cout<<" "; // Caractere de espaçamento
             }
-            obstaculo_y++; // Acionar um obstáculo infinitamente enquanto o laço de repetição estiver executando
-        }
+    obstaculo_y++; // Acionar um obstáculo infinitamente enquanto o laço de repetição estiver executando
+    }
 
     obstaculo_y2=1; // Valor inicial dado ao obstáculo 2.
     while(obstaculo_y2<20){ // Enquanto o valor de y2 estiver dentro dos padrões estabelecidos, o laço será repetido.
@@ -66,7 +70,7 @@ int main()
             } else {
                 cout<<" ";
             }
-        obstaculo_y2++;
+    obstaculo_y2++;
     }
 
     obstaculo_y3=1; // Valor inicial dado ao obstáculo 2.
@@ -78,21 +82,21 @@ int main()
             } else {
                 cout<<" ";
             }
-        obstaculo_y3++;
+            obstaculo_y3++;
         }
 
     ///VERIFICA COLISÃO
     if (bird_x  == obstaculo_x && (bird_y >= random1 && bird_y <= random1+4)){ // Caso o pássaro passe pelo espaçamento entre o obstáculo 1, o desvio descrito abaixo será executado.
         pontuacao += 1; // Adiciona 1 na pontuação
         } else if (bird_x  == obstaculo_x){ // Caso haja uma colisão do pássaro no obstáculo 1, realizar o desvio:
-            system("cls"); // Limpa a tela do jogo
-            cout<< "Game Over!" << endl; // Mensagem exibida no final do game
+            system("cls");
+            cout<< "Game Over!" << endl; // Mensagem
             cout<< "Sua pontuacao foi : "<< pontuacao << endl;
             system("pause"); // Pausa a execução da aplicação.
             return 0;
         }
 
-    if (bird_x  == obstaculo_x2 && (bird_y >= random2 && bird_y <= random2+3)){ // Caso o pássaro passe pelo espaçamento entre o obstáculo 2, o desvio descrito abaixo será executado.
+    if (bird_x  == obstaculo_x2 && (bird_y >= random2 && bird_y <= random2+4)){ // Caso o pássaro passe pelo espaçamento entre o obstáculo 2, o desvio descrito abaixo será executado.
         pontuacao += 1;
         } else if (bird_x  == obstaculo_x2){ // Caso haja uma colisão do pássaro no obstáculo 2, realizar o desvio:
             system("cls");
@@ -102,7 +106,7 @@ int main()
             return 0;
         }
 
-    if (bird_x  == obstaculo_x3 && (bird_y >= random3 && bird_y <= random3+5)){ // Caso o pássaro passe pelo espaçamento entre o obstáculo 3, o desvio descrito abaixo será executado.
+    if (bird_x  == obstaculo_x3 && (bird_y >= random3 && bird_y <= random3+4)){ // Caso o pássaro passe pelo espaçamento entre o obstáculo 3, o desvio descrito abaixo será executado.
         pontuacao += 1;
         } else if (bird_x  == obstaculo_x3){ // Caso haja uma colisão do pássaro no obstáculo 3, realizar o desvio:
             system("cls");
@@ -142,15 +146,15 @@ int main()
     ///OBSTÁCULO AVANÇA UMA POSIÇÃO PARA ESQUERDA
     if (obstaculo_x <= 0) { // Quando o obstáculo surgir pela direita, realizar o desvio:
         obstaculo_x = 90; // O obstáculo surge no ponto mais distante
-         random1=rand()%18; // Quando o obstáculo passa da posição 0 de X, um novo obstáculo aleatório
+         random1=rand()%10;
         }
     if (obstaculo_x2 <=0){
         obstaculo_x2 =90;
-         random2=rand()%18;
+         random2=rand()%10;
         }
     if (obstaculo_x3 <=0){
         obstaculo_x3 =90;
-        random3=rand()%18;
+        random3=rand()%10;
         }
     obstaculo_x--; // O obstáculo vai se recuando para a esquerda a cada desvio realizado
     obstaculo_x2--;
