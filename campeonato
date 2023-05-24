@@ -1,0 +1,31 @@
+public:
+    Campeonato(const std::string& nome) {
+        this->nome = nome;
+    }
+
+    void adicionarJogo(const Jogo& jogo) {
+        jogos.push_back(jogo);
+    }
+
+    void adicionarTime(const Time& time) {
+        times.push_back(time);
+    }
+
+    void removerTime(const std::string& nomeTime) {
+        for (auto it = times.begin(); it != times.end(); ++it) {
+            if (it->getNome() == nomeTime) {
+                times.erase(it);
+                break;
+            }
+        }
+    }
+
+    Time* buscarTime(const std::string& nomeTime) {
+        for (auto& time : times) {
+            if (time.getNome() == nomeTime) {
+                return &time;
+            }
+        }
+        return nullptr;
+    }
+};
