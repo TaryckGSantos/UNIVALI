@@ -3,15 +3,15 @@ using namespace std;
 
 #include <vector>
 
-class Jogadores{
+class Jogador{
 private:
     string nome;
     int idade;
-    string jogo;
+    vector<Jogo> jogo;
     string posicao;
     int id;
 public:
-    Jogadores(string nome, int idade, string jogo, string posicao, int id){
+    Jogador(string nome, int idade, string jogo, string posicao, int id){
         this->nome = nome;
         this->idade = idade;
         this->jogo = jogo;
@@ -28,30 +28,175 @@ public:
     int getID(){
         return this->id;
     }
+    void inserir_player(vector<Jogador> &player, string nome, int idade, string jogo, string posicao, int id){
+        player.push_back(Jogador(nome,idade,jogo,posicao,id));
+    }
+
+    void mostrar_players(vector<Jogador> &player){
+        for(int i = 0; i < player.size(); i++){
+            player[i].mostrar();
+        }
+    }
 };
 
-void inserir_player(vector<Jogadores> &player, string nome, int idade, string jogo, string posicao, int id){
-    player.push_back(Jogadores(nome,idade,jogo,posicao,id));
-}
-
-void mostrar_player(vector<Jogadores> &player){
-    for(int i = 0; i < player.size(); i++){
-        player[i].mostrar();
+class Time{
+private: 
+    string nome;
+    vector<Jogo> jogo;
+    vector<Jogador> jogadores;
+    
+public:
+    Time(string nome, string jogo) {
+        this->nome = nome;
+        this->jogo = jogo;
     }
-}
+    void inserir_player(vector<Jogador> &player, string nome, int idade, string jogo, string posicao, int id){
+        player.push_back(Jogador(nome,idade,jogo,posicao,id));
+    }
 
-void excluir_player(vector<Jogadores> &player, int id){
+    void mostrar_players(vector<Jogador> &player){
+        for(int i = 0; i < player.size(); i++){
+            player[i].mostrar();
+        }
+    }
+    
+    void remover_players(int id) {
+        for (auto it = jogadores.begin(); it != jogadores.end(); ++it) {
+            if (it->getID() == id) {
+                jogadores.erase(it);
+                break;
+            }
+        }
+    }
+    /*void excluir_player(int id){
+    for(auto i = jogadores.begin(); i != jogadores.end(); ++i){
+        if(i->getID() == id){
+            jogadores.erase(i);
+        }
+    }
+}*/
+};
+
+class Campeonato{
+private: 
+    string nome;
+    vector<Jogo> jogo;
+    vector<Time> times;
+public: 
+    Campeonato(string nome, string jogo) {
+        this->nome = nome;
+        this->jogo = jogo;
+    }
+    void inserir_time(Time time) {
+        times.push_back(time);
+    }
+    void remover_time(string nomeTime) {
+        for (auto it = times.begin(); it != times.end(); ++it) {
+            if (it->getNome() == nomeTime) {
+                times.erase(it);
+                break;
+            }
+        }
+    }
+    void buscar_time(string nomeTime) {
+        for (auto& time : times) {
+            if (time.getNome() == nomeTime) {
+                return &time;
+            }
+        }
+        return nullptr;
+    }
+};
+
+class Jogo {
+private:
+    string nome;
+    int id;
+    vector<string> jogos;
+public:
+    Jogo(string nome) {
+        this->nome = nome;
+    }
+    string getNome(){
+        return this->nome;
+    }
+    void criar_jogo(string jogo) {
+        jogos.push_back(jogo);
+    }
+    void verJogos() {
+        for (const string& jogo : jogos) {
+            cout << jogo << "\n";
+        }
+    }
+};
+
+/*void excluir_player(vector<Jogador> &player, int id){
     for(auto i = player.begin(); i != player.end(); ++i){
-        if(it->getID() == id){
+        if(i->getID() == id){
             player.erase(i);
         }
     }
-}
+}*/
 
 int main()
 {
-    vector<Jogadores> player;
-
-    inserir_player(player, "Taryck", 19, "CSGO", "Lurker", 13246);
-    mostrar_player(player);
+    int menu, menu_camp, menu_times;
+    string jogo, nome_camp, nome_time;
+    
+    vector<Jogo> jogos;
+    
+    do{
+        cout << "1 - Menu de campeonatos";
+        cout << "2 - Menu de times";
+        cout << "3 - Menu de Players\n\n";
+        cin >> menu;
+        
+        switch(menu){
+            case 1:
+                system("cls");
+                cout << "1 - Cadastrar campeonato";
+                cout << "\n2 - Remover campeonato";
+                cout << "\n3 - Buscar campeonato";
+                cout << "\n4 - Ver todos os campeonatos";
+                cin >> menu_camp;
+                if (menu_camp == 1){
+                    system("cls");
+                    cout << "Nome do campeonato: ";
+                    cin >> nome_camp;
+                    cout << "Qual o jogo? Jogos disponíveis: ";
+                    for(int i = 0; int i < jogos.size(); i++){
+                        string nome_jgo = jogos[i].getNome();
+                        cout << nome_jgo << "\n";
+                    }
+                    cin >> jogo;
+                }
+            break;
+            
+            case 2:
+                system("cls");
+                cout << "1 - Cadastrar time";
+                cout << "\n2 - Remover time";
+                cout << "\n3 - Buscar time";
+                cout << "\n4 - Ver todos os times";
+                cin >> menu_times;
+                if (menu_times == 1){
+                    system("cls");
+                    cout << "Nome do time: ";
+                    cin >> nome_time;
+                    cout << "Qual o jogo? Jogos disponíveis: ";
+                    for(int i = 0; int i < jogos.size(); i++){
+                        string nome_jgo = jogos[i].getNome();
+                        cout << nome_jgo << "\n";
+                    }
+                    cin >> jogo;
+                    
+                }
+            break;
+        }
+        system("cls");
+        cout << "1 - Cadastrar campeonato";
+        cout << "\n2 - Remover campeonato";
+        cout << "\n3 - Buscar campeonato";
+        cout << "\n4 - Ver todos os campeonatos";
+    }
 }
