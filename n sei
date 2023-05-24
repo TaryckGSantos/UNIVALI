@@ -1,0 +1,46 @@
+#include <iostream>
+using namespace std;
+
+#include <vector>
+
+class Jogadores{
+private:
+    string nome;
+    int idade;
+    string jogo;
+    string posicao;
+    int id;
+public:
+    Jogadores(string nome, int idade, string jogo, string posicao, int id){
+        this->nome = nome;
+        this->idade = idade;
+        this->jogo = jogo;
+        this->posicao = posicao;
+        this->id = id;
+    }
+    void mostrar(){
+        cout << "Player: " << this->nome << "\n\n";
+        cout << "Idade: " << this->idade << "\n\n";
+        cout << "Game: " << this->jogo << "\n\n";
+        cout << "Posição in Game: " << this->posicao << "\n\n";
+        cout << "ID do player: " << this->id << "\n\n";
+    }
+};
+
+void inserir_player(vector<Jogadores> &player, string &nome, int &idade, string &jogo, string &posicao, int &id){
+    player.push_back(Jogadores(nome,idade,jogo,posicao,id));
+}
+
+void mostrar_player(vector<Jogadores> &player){
+    for(int i = 0; i < player.size(); i++){
+        player[i].mostrar();
+    }
+}
+
+int main()
+{
+    vector<Jogadores> player;
+
+    inserir_player(player, "Taryck", 19, "CSGO", "Lurker", 13246);
+    mostrar_player(player);
+}
