@@ -1,6 +1,8 @@
 #include <iostream>
 using namespace std;
 
+#include <windows.h>
+
 const char VERTICAL = 'v';
 const char HORIZONTAL = 'h';
 
@@ -25,10 +27,57 @@ TNo * novo_no(int dado, int chave){
     TNo * novo = new TNo;
     novo->dado = dado;
     novo->chave = chave;
+    novo->oif(no->orientE == 'v'){
+        cout << " | ";
+    } else if (no->orientE == 'h'){
+        cout << " - ";
+    }rientD = NULL;
+    novo->orientE = NULL;
     novo->dir = NULL;
     novo->esq = NULL;
-    novo->bal = 0;
     return novo;
+}
+
+void RR(TNo *&ap){
+    TNo * ap1 = ap->dir;
+    ap->dir = ap1->esq;
+    ap1->esq = ap;
+    ap1->orientD = VERTICAL;
+    ap->orientD = VERTICAL;
+    ap = ap1;
+}
+
+void LL(TNo *&ap){
+    TNo * ap1 = ap->esq;
+    ap->esq = ap1->dir;
+    ap1->dir = ap;
+    ap1->orientE = VERTICAL;
+    ap->orientE = VERTICAL;
+    ap = ap1;
+}
+
+void RL(TNo *&ap){
+    TNo * ap1 = ap->dir;
+    TNo * ap2 = ap1->esq;
+    ap1->orientE = VERTICAL;
+    ap->orientD = VERTICAL;
+    ap1->esq = ap2->dir;
+    ap2->dir = ap1;
+    ap->dir = ap2->esq;
+    ap2->esq = ap;
+    ap = ap2;
+}
+
+void LR(TNo *&ap){
+    TNo * ap1 = ap->esq;
+    TNo * ap2 = ap1->dir;
+    ap1->orientD = VERTICAL;
+    ap->orientE = VERTICAL;
+    ap1->dir = ap2->esq;
+    ap2->esq = ap1;
+    ap->esq = ap2->dir;
+    ap2->dir = ap;
+    ap = ap2;
 }
 
 int inserir (TNo *&no, int dado, int chave){
@@ -45,7 +94,11 @@ int inserir (TNo *&no, int dado, int chave){
             } else {
                 if(n == 2 && no->orientD == HORIZONTAL){
                     n = 1;
-                    balanceaDir(no, chave);
+                    if(no->dir->orientD == HORIZONTAL){
+                        RR(no);
+                    } else {
+                        RL(no);
+                    }
                 } else {
                     n = 0;
                 }
@@ -53,25 +106,66 @@ int inserir (TNo *&no, int dado, int chave){
         } else {
             if(chave < no->chave){
                 n = inserir(no->esq, dado, chave);
-            }
-            if(n == 1){
-                no->orientE = HORIZONTAL;
-                n++;
-            } else {
-                if(n == 2 && no->orientE == HORIZONTAL){
-                    n = 1;
-                    balanceaEsq(no, chave);
+                if(n == 1){
+                    no->orientE = HORIZONTAL;
+                    n++;
                 } else {
-                    n = 0;
+                    if(n == 2 && no->orientE == HORIZONTAL){
+                        n = 1;
+                        if(no->esq->orientE == HORIZONTAL){
+                            LL(no);
+                        } else {
+                            LR(no);
+                        }
+                    }
                 }
             }
         }
     }
 }
 
+void mostrar_arv(TNo * no) {
+    if (no == NULL) {
+        return;
+    }
+
+    mostrar_arv(no->esq);
+
+    if(no->orientE == 'v'){
+        cout << " | ";
+    } else if (no->orientE == 'h'){
+        cout << " - ";
+    }
+
+    cout << no->chave;
+
+    if(no->orientD == 'v'){
+        cout << " | ";
+    } else if (no->orientD == 'h'){
+        cout << " - ";
+    }
+
+    mostrar_arv(no->dir);
+}
 
 int main()
 {
-    cout << "Hello world!" << endl;
+    TArvore arv;
+
+    inicializa_arvore(arv);
+
+    int insere, i = 0;
+
+    while(i < 20){
+        system("cls");
+        cout << "\t\tValor a ser inserido: ";
+        cin >> insere;
+        inserir(arv.raiz, 5, insere);
+        cout << "\n\n\n\n";
+        mostrar_arv(arv.raiz);
+        system("pause>nul");
+        i++;
+    }
+
     return 0;
 }
