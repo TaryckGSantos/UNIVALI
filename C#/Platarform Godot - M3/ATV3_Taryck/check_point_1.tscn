@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxjsb5p288t7a"]
+
+[ext_resource type="Script" path="res://check_point_1.cs" id="1_ulg8v"]
+[ext_resource type="Texture2D" uid="uid://7qrslijlyf8c" path="res://kenney_pixel-platformer/Tiles/tile_0128.png" id="2_5m174"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pjx0e"]
+size = Vector2(20, 19)
+
+[node name="CheckPoint 1" type="Area2D"]
+script = ExtResource("1_ulg8v")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2.86102e-06, -5)
+scale = Vector2(1.55556, 1.55556)
+texture = ExtResource("2_5m174")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_pjx0e")
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]

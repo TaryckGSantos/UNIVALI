@@ -1,0 +1,93 @@
+[gd_scene load_steps=8 format=3 uid="uid://d0jqakworynbx"]
+
+[ext_resource type="Script" path="res://main.cs" id="1_c8h2u"]
+[ext_resource type="PackedScene" uid="uid://bg6v01uyi8t1s" path="res://tile_map.tscn" id="1_cxsyk"]
+[ext_resource type="Texture2D" uid="uid://c7jtyaouw3alm" path="res://fundo-de-verao-2d-da-paisagem-da-natureza-dos-desenhos-animados_107791-14518.jpg" id="2_acict"]
+[ext_resource type="PackedScene" uid="uid://bmv7jbahlib1i" path="res://player.tscn" id="3_lkpi6"]
+[ext_resource type="PackedScene" uid="uid://68ltcrg4ag68" path="res://espinho.tscn" id="5_3mksv"]
+[ext_resource type="PackedScene" uid="uid://bxjsb5p288t7a" path="res://check_point_1.tscn" id="6_ryiwj"]
+[ext_resource type="PackedScene" uid="uid://caecxc80fhgfr" path="res://coleta_1.tscn" id="7_dkulc"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_c8h2u")
+metadata/_edit_vertical_guides_ = [-10.0]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground"]
+position = Vector2(0, -7.00001)
+scale = Vector2(1.41291, 2.03002)
+texture = ExtResource("2_acict")
+centered = false
+
+[node name="Mapa_Taryck" parent="." instance=ExtResource("1_cxsyk")]
+layer_0/tile_data = PackedInt32Array(1507333, 131072, 0, 1507334, 131072, 0, 1507335, 131072, 0, 1507336, 131072, 0, 1507337, 131072, 0, 1507338, 131072, 0, 1507339, 131072, 0, 1507340, 131072, 0, 1507341, 131072, 0, 1507342, 131072, 0, 1507343, 131072, 0, 1507344, 131072, 0, 1507345, 131072, 0, 1507346, 131072, 0, 1507347, 131072, 0, 1572869, 131072, 6, 1572870, 131072, 6, 1572871, 131072, 6, 1572872, 131072, 6, 1572873, 131072, 6, 1572874, 131072, 6, 1572875, 131072, 6, 1572876, 131072, 6, 1572877, 131072, 6, 1572878, 131072, 6, 1572879, 131072, 6, 1572880, 131072, 6, 1572881, 131072, 6, 1572882, 131072, 6, 1572883, 131072, 6, 1441803, 524288, 4, 1245244, 131072, 0, 1245245, 131072, 0, 1245246, 131072, 0, 852025, 131072, 0, 852024, 131072, 0, 852023, 131072, 0, 720960, 131072, 0, 720961, 131072, 0, 720962, 131072, 0, 983111, 131072, 0, 983112, 131072, 0, 983113, 131072, 0, 786522, 131072, 0, 786523, 131072, 0, 786524, 131072, 0, 589920, 131072, 0, 589921, 131072, 0, 589922, 131072, 0, 589923, 131072, 0, 589924, 131072, 0, 589925, 131072, 0, 589926, 131072, 0, 589927, 131072, 0, 589928, 131072, 0, 589929, 131072, 0, 589930, 131072, 0, 1245266, 131072, 0, 1245267, 131072, 0, 1245268, 131072, 0, 786521, 131072, 0, 786520, 131072, 0, 786519, 131072, 0, 786518, 131072, 0, 786517, 131072, 0, 786516, 131072, 0, 1638474, 131072, 0, 1638475, 131072, 0, 1638476, 131072, 0, 1638477, 131072, 0, 1769543, 131072, 0, 1769542, 131072, 0, 1769541, 131072, 0, 2424905, 131072, 0, 2424906, 131072, 0, 2424907, 131072, 0, 2490447, 131072, 0, 2555987, 131072, 0, 2490460, 131072, 0, 2490465, 131072, 0, 2359398, 131072, 0, 2293865, 131072, 0, 2293866, 131072, 0, 2097269, 131072, 0, 2097270, 131072, 0, 2097271, 131072, 0, 1900668, 131072, 0, 1638530, 131072, 0, 1310856, 131072, 0, 1048716, 131072, 0, 1048717, 131072, 0, 1048718, 131072, 0, 1048719, 131072, 0, 2359397, 131072, 0, 2293864, 131072, 0, 1048737, 131072, 0, 1048738, 131072, 0, 1048739, 131072, 0, 1048755, 131072, 0, 1048756, 131072, 0, 1048757, 131072, 0, 1441983, 131072, 0, 1441984, 131072, 0, 1441985, 131072, 0, 1900747, 131072, 0, 1900748, 131072, 0, 1900749, 131072, 0, 1900758, 131072, 0, 1900759, 131072, 0, 1704158, 131072, 0, 1704159, 131072, 0, 1376484, 131072, 0, 1573102, 131072, 0, 524467, 131072, 0, 524468, 131072, 0, 524469, 131072, 0, 1376504, 131072, 0, 1704194, 131072, 0, 1507597, 131072, 0, 1507598, 131072, 0, 1507599, 131072, 0, 1507600, 131072, 0, 1507601, 131072, 0, 1507602, 131072, 0, 1507603, 131072, 0, 1507604, 131072, 0, 1507605, 131072, 0, 1507606, 131072, 0, 1507607, 131072, 0, 1507608, 131072, 0, 1507609, 131072, 0, 1507610, 131072, 0, 1507611, 131072, 0, 1507612, 131072, 0, 1310993, 131072, 0, 1310998, 131072, 0, 1114396, 131072, 0, 655534, 131072, 0, 655533, 131072, 0, 655532, 131072, 0, 1572910, 131072, 0, 1572911, 131072, 0, 1572912, 131072, 0)
+
+[node name="Player" parent="Mapa_Taryck" instance=ExtResource("3_lkpi6")]
+position = Vector2(123, 263)
+
+[node name="espinho" parent="." instance=ExtResource("5_3mksv")]
+position = Vector2(735, 376)
+
+[node name="CheckPoint 1" parent="." instance=ExtResource("6_ryiwj")]
+position = Vector2(1672, 136)
+
+[node name="espinho2" parent="." instance=ExtResource("5_3mksv")]
+position = Vector2(1871, 505)
+
+[node name="CheckPoint 2" parent="." instance=ExtResource("6_ryiwj")]
+position = Vector2(2279, 246)
+
+[node name="espinho3" parent="." instance=ExtResource("5_3mksv")]
+position = Vector2(1663, 553)
+
+[node name="espinho4" parent="." instance=ExtResource("5_3mksv")]
+position = Vector2(1698, 552)
+
+[node name="espinho5" parent="." instance=ExtResource("5_3mksv")]
+position = Vector2(2254, 249)
+
+[node name="espinho6" parent="." instance=ExtResource("5_3mksv")]
+position = Vector2(2239, 249)
+
+[node name="espinho7" parent="." instance=ExtResource("5_3mksv")]
+position = Vector2(2239, 249)
+
+[node name="Coleta1" parent="." instance=ExtResource("7_dkulc")]
+position = Vector2(1687, 530)
+
+[node name="espinho8" parent="." instance=ExtResource("5_3mksv")]
+position = Vector2(2863, 248)
+
+[node name="espinho9" parent="." instance=ExtResource("5_3mksv")]
+position = Vector2(3055, 345)
+
+[node name="espinho10" parent="." instance=ExtResource("5_3mksv")]
+position = Vector2(3247, 457)
+
+[node name="espinho11" parent="." instance=ExtResource("5_3mksv")]
+position = Vector2(2898, 248)
+
+[node name="espinho12" parent="." instance=ExtResource("5_3mksv")]
+position = Vector2(2785, 151)
+
+[node name="espinho13" parent="." instance=ExtResource("5_3mksv")]
+position = Vector2(2863, 120)
+
+[node name="espinho14" parent="." instance=ExtResource("5_3mksv")]
+position = Vector2(2899, 120)
+
+[node name="Coleta2" parent="." instance=ExtResource("7_dkulc")]
+position = Vector2(2888, 83)
+
+[node name="CheckPoint 3" parent="." instance=ExtResource("6_ryiwj")]
+position = Vector2(3080, 344)
+
+[node name="Coleta3" parent="." instance=ExtResource("7_dkulc")]
+position = Vector2(4553, 260)
+
+[connection signal="body_entered" from="Coleta1" to="Coleta1" method="OnBodyEntered"]
+[connection signal="body_entered" from="Coleta2" to="Coleta2" method="OnBodyEntered"]
+[connection signal="body_entered" from="Coleta3" to="Coleta3" method="OnBodyEntered"]

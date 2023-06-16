@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://caecxc80fhgfr"]
+
+[ext_resource type="Script" path="res://Coleta1.cs" id="1_wp63s"]
+[ext_resource type="Texture2D" uid="uid://b0lenqbq6d7w7" path="res://kenney_pixel-platformer/Tiles/tile_0044.png" id="2_6vio2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8r0ot"]
+size = Vector2(20, 16)
+
+[node name="Coleta1" type="Area2D"]
+script = ExtResource("1_wp63s")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -2.38419e-07)
+scale = Vector2(1.41667, 1.38889)
+texture = ExtResource("2_6vio2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_8r0ot")
