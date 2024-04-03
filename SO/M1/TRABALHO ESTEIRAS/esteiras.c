@@ -6,37 +6,37 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
-#include <omp.h>
+#include "omp.h"
 
-#define NUM_CONVEYORS 3
-#define ITEMS_PER_WEIGHING 1500
+#define NUM_ESTEIRAS 3
+#define CONT_PARA_PESAGEM 5
 
-// Shared data
-int total_count;
+// Variáveis globais
+int cont_total;
 pthread_mutex_t mutex;
 
-// Pipe for interprocess communication
+// Pipe para comunicação entre processos
 int fd[2];
 
-// Function to count items on conveyor
-void* conveyor_count(void* arg) {
+// Função para contar os itens nas esteiras
+void* cont_esteiras(void* arg) {
   int conveyor_number = (int) arg;
   int count = 0;
   // Simulate time between items passing through the conveyor
-  for (int i = 0; i < NUM_CONVEYORS; i++) {
+  for (int i = 0; i < NUM_ESTEIRAS; i++) {
     pthread_mutex_lock(&mutex);
     count++;
-    total_count++;
+    cont_total++;
     pthread_mutex_unlock(&mutex);
-    if (count % ITEMS_PER_WEIGHING == 0) {
+    if (count % CONT_PARA_PESAGEM == 0) {
       // Calculate total weight of items using OpenMP
       #pragma omp parallel for
-      for (int j = 0; j < ITEMS_PER_WEIGHING; j++) {
+      for (int j = 0; j < CONT_PARA_PESAGEM; j++) {
         // Calculate weight of item based on conveyor number
         double weight = (conveyor_number == 0) ? 5.0 : (conveyor_number == 1) ? 2.0 : 0.5;
         // Update shared data
         pthread_mutex_lock(&mutex);
-        total_count += weight;
+        cont_total += weight;
         pthread_mutex_unlock(&mutex);
       }
     }
@@ -49,13 +49,13 @@ void* conveyor_count(void* arg) {
 void update_display() {
   while (1) {
     sleep(2);
-    printf("Total count: %d\n", total_count);
+    printf("Total count: %d\n", cont_total);
   }
 }
 
 int main() {
   // Initialize shared data
-  total_count = 0;
+  cont_total = 0;
   pthread_mutex_init(&mutex, NULL);
 
   // Create pipe for interprocess communication
@@ -73,11 +73,11 @@ int main() {
 
   if (pid == 0) {
     // Child process
-    pthread_t threads[NUM_CONVEYORS];
-    for (int i = 0; i < NUM_CONVEYORS; i++) {
-      pthread_create(&threads[i], NULL, conveyor_count, (void*) i);
+    pthread_t threads[NUM_ESTEIRAS];
+    for (int i = 0; i < NUM_ESTEIRAS; i++) {
+      pthread_create(&threads[i], NULL, cont_esteiras, (void*) i);
     }
-    for (int i = 0; i < NUM_CONVEYORS; i++) {
+    for (int i = 0; i < NUM_ESTEIRAS; i++) {
       pthread_join(threads[i], NULL);
     }
     exit(0);
