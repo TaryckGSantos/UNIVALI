@@ -1,87 +1,48 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <pthread.h>
-#include <unistd.h>
+#include "task.h"
+#include "list.h"
 #include "schedule_rr_p.h"
 
-#define MAX_PRIORITY 10 
+#define SIZE 100
 
-// Lista de aptos
-struct node *lista_aptos[MAX_PRIORITY];
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+int main(int argc, char *argv[]){
+    
+    FILE *in;
+    char *temp;
+    char task[SIZE];
 
-// Inicializa a lista de aptos
-void init_lista_aptos() {
-    for (int i = 0; i < MAX_PRIORITY; i++) {
-        lista_aptos[i] = NULL;
+    char *name;
+    int priority;
+    int burst;
+
+    // Open the file in read mode
+    in = fopen("tasks.txt", "r"); // replace "input.txt" with your file name
+    
+    if (in == NULL) {
+        printf("Error opening file\n");
+        return 1;
+    } 
+
+    while (fgets(task,SIZE,in) != NULL) {
+        temp = strdup(task);
+        name = strsep(&temp,",");
+        priority = atoi(strsep(&temp,","));
+        burst = atoi(strsep(&temp,","));
+
+        printf("Nome: %s Prioridade: %d Burst: %d\n\n", name, priority, burst);
+
+        // adicionar a task na lista do escalonador
+        add(name,priority,burst);
+
+        free(temp);
     }
-}
 
-// Adiciona uma tarefa na lista de aptos
-void add(char *name, int priority, int burst) {
-    pthread_mutex_lock(&mutex);
+    fclose(in);
+    
+    // Invocar o escalonador
+    schedule();
 
-    Task *new_task = (Task *)malloc(sizeof(Task));
-    new_task->name = strdup(name);
-    new_task->priority = priority;
-    new_task->burst = burst;
-
-    insert(&lista_aptos[priority - 1], new_task);
-
-    pthread_mutex_unlock(&mutex);
-}
-
-// Função de escalonamento Round-Robin com prioridade
-void schedule() {
-    printf("\n------------------------------------\n\n\n");
-
-    for (int i = 0; i < MAX_PRIORITY; i++) {
-        while (1) {
-            pthread_mutex_lock(&mutex);
-            int all_empty = 1; // Supondo que a fila atual está vazia
-
-            if (lista_aptos[i] != NULL) {
-                all_empty = 0; // Encontrou pelo menos uma tarefa para executar
-
-                struct node *current = lista_aptos[i];
-                struct node *prev = NULL;
-
-                while (current != NULL) {
-                    Task *task = current->task;
-                    int time_slice = (task->burst > QUANTUM) ? QUANTUM : task->burst;
-                    run(task, time_slice);
-
-                    task->burst -= time_slice;
-                    sleep(1); // Simular slice de tempo
-
-                    if (task->burst <= 0) {
-                        printf("\n%s concluída\n\n", task->name);
-                        struct node *to_delete = current;
-                        if (prev == NULL) {
-                            lista_aptos[i] = current->next;
-                        } else {
-                            prev->next = current->next;
-                        }
-                        current = current->next;
-                        free(to_delete->task->name);
-                        free(to_delete->task);
-                        free(to_delete);
-                    } else {
-                        prev = current;
-                        current = current->next;
-                    }
-                }
-            }
-
-            pthread_mutex_unlock(&mutex);
-
-            if (all_empty) {
-                break; // Sai do loop se a fila está vazia
-            }
-
-            sleep(1); // Simular slice de tempo
-        }
-    }
-    printf("Todas as tarefas foram concluídas.\n");
+    return 0;
 }
