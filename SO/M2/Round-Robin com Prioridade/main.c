@@ -37,12 +37,11 @@ void add(char *name, int priority, int burst) {
 void schedule() {
     printf("\n------------------------------------\n\n\n");
 
-    while (1) {
-        pthread_mutex_lock(&mutex);
-        int all_empty = 1; // Supondo que todas as filas estão vazias
+    for (int i = 0; i < MAX_PRIORITY; i++) {
+        while (1) {
+            pthread_mutex_lock(&mutex);
+            int all_empty = 1; // Supondo que a fila atual está vazia
 
-        // Percorre todas as filas de prioridade
-        for (int i = 0; i < MAX_PRIORITY; i++) {
             if (lista_aptos[i] != NULL) {
                 all_empty = 0; // Encontrou pelo menos uma tarefa para executar
 
@@ -75,14 +74,15 @@ void schedule() {
                     }
                 }
             }
-        }
-        pthread_mutex_unlock(&mutex);
 
-        if (all_empty) {
-            break; // Sai do loop se todas as filas estão vazias
-        }
+            pthread_mutex_unlock(&mutex);
 
-        sleep(1); // Simular slice de tempo
+            if (all_empty) {
+                break; // Sai do loop se a fila está vazia
+            }
+
+            sleep(1); // Simular slice de tempo
+        }
     }
     printf("Todas as tarefas foram concluídas.\n");
 }
