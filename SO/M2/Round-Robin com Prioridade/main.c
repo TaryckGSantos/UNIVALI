@@ -1,4 +1,3 @@
-// Funciona apenas o Round Robin
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
