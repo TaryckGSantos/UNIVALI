@@ -8,10 +8,25 @@ using namespace std;
 
 // Função que mostra a matriz
 void exibirMatriz(const vector<vector<int>>& matrizAdj) {
+    int n = matrizAdj.size();
+
     cout << "\nMatriz de adjacência:\n";
-    for (const auto& linha : matrizAdj) {
-        for (int val : linha) {
-            cout << val << " ";
+    cout << "   "; // Espaço para alinhar com a primeira coluna de números
+    for (int i = 0; i < n; ++i) {
+        cout << " " << i; // Cabeçalho das colunas
+    }
+    cout << endl;
+
+    cout << "   "; // Linha de separação após os números das colunas
+    for (int i = 0; i < n; ++i) {
+        cout << " -";
+    }
+    cout << endl;
+
+    for (int i = 0; i < n; ++i) {
+        cout << i << " |"; // Número da linha e barra vertical para separar
+        for (int j = 0; j < n; ++j) {
+            cout << " " << matrizAdj[i][j];
         }
         cout << endl;
     }
